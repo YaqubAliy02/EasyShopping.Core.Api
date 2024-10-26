@@ -1,4 +1,5 @@
-
+using Application;
+using Infrastracture;
 namespace EasyShopping.Core.Api
 {
     public class Program
@@ -10,6 +11,9 @@ namespace EasyShopping.Core.Api
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddInfrastructureServices(builder.Configuration);
+            builder.Services.AddApplicationServices();
 
             var app = builder.Build();
 
