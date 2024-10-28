@@ -15,5 +15,6 @@ namespace Application.Abstraction
         DbSet<SubComment> SubComments { get; set; }
         DbSet<OrderItem> OrderItems { get; set; }
         DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }
