@@ -21,7 +21,7 @@ namespace Infrastracture.Services
             user.Password = user.Password.GetHash();
             easyShoppingDbContext.Users.Add(user);
 
-            int result = await easyShoppingDbContext.SaveChangesAsync();
+            int result = await this.easyShoppingDbContext.SaveChangesAsync();
 
             if (result > 0) return user;
 
@@ -30,14 +30,14 @@ namespace Infrastracture.Services
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            User user = await easyShoppingDbContext.Users.FindAsync(id);
+            User user = await this.easyShoppingDbContext.Users.FindAsync(id);
 
             if (user is not null)
             {
-                easyShoppingDbContext.Users.Remove(user);
+                this.easyShoppingDbContext.Users.Remove(user);
             }
 
-            int result = await easyShoppingDbContext.SaveChangesAsync();
+            int result = await this.easyShoppingDbContext.SaveChangesAsync();
 
             if (result > 0) return true;
 
@@ -46,7 +46,7 @@ namespace Infrastracture.Services
 
         public Task<IQueryable> GetAsync(Expression<Func<User, bool>> expression)
         {
-            return (Task<IQueryable>)easyShoppingDbContext.Users.Where(expression)
+            return (Task<IQueryable>)this.easyShoppingDbContext.Users.Where(expression)
                 .Include(x => x.Products)
                 .Include(x => x.Comments)
                 .Include(x => x.ShoppingCart)
@@ -81,7 +81,7 @@ namespace Infrastracture.Services
 
                 foreach (var role in existingUser.UserRoles)
                 {
-                    var existingRole = await this.easyShoppingDbContext.Roles.FindAsync(role.Id);
+                    var existingRole = await this.easyShoppingDbContext.Roles.FindAsync(role.RoleId);
 
                     if (existingRole is not null)
                     {
