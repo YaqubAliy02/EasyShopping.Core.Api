@@ -30,10 +30,22 @@ namespace EasyShopping.Core.Api.Controllers
         {
             return await this.mediator.Send(new GetAllRolesQuery());
         }
+
         [HttpGet("[action]")]
         public async Task<IActionResult> GetRoleByIdAsync([FromQuery] GetRoleByIdQuery getRoleByIdQuery)
         {
             return await this.mediator.Send(getRoleByIdQuery);
         }
+
+
+        [HttpPut("[action]")]
+        public async Task<IActionResult> UpdateRoleAsync([FromBody] 
+        UpdateRoleCommand updateRoleCommand)
+        {
+            return await this.mediator.Send(updateRoleCommand);
+        }
+
+
+
     }
 }

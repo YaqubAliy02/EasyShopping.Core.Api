@@ -18,14 +18,7 @@ namespace Application.Mappings
         {
             CreateMap<CreateRoleCommand, UserRole>();
             CreateMap<UserRole, CreateRoleCommandResult>();
+            CreateMap<UpdateRoleCommand, UserRole>();
         }
-
-        //private void UserMappingRules()
-        //{
-        //    CreateMap<CreateUserCommand, User>()
-        //        .ForMember(destination => destination.UserRoles,
-        //            options => options.MapFrom(src => src.UserRolesId
-        //               .Select(x => new UserRole() { RoleId = x })));
-        //}
     }
 }
