@@ -1,6 +1,7 @@
 ﻿//using Application.UseCases.Roles.Command;
 //using Application.UseCases.Users.Commands;
 using Application.UseCases.Roles.Command;
+using Application.UseCases.Users.Command;
 using AutoMapper;
 using Domain.Models;
 
@@ -10,7 +11,7 @@ namespace Application.Mappings
     {
         public MappingProfiles()
         {
-           // UserMappingRules();
+           UserMappingRules();
             UserRoleMappingRules();
         }
 
@@ -19,6 +20,15 @@ namespace Application.Mappings
             CreateMap<CreateRoleCommand, UserRole>();
             CreateMap<UserRole, CreateRoleCommandResult>();
             CreateMap<UpdateRoleCommand, UserRole>();
+        }
+        private void UserMappingRules()
+        {
+            CreateMap<CreateUserCommand, User>()
+                .ForMember(destination => destination.UserRoles,
+                options => options.MapFrom(src => src.RolesId
+                .Select(x => new UserRole() { RoleId = x })));
+
+            CreateMap<User, CreateUserCommandHandlerResult>();
         }
     }
 }

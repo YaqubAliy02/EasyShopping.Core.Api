@@ -19,7 +19,7 @@ namespace Infrastracture.Services
         public async Task<User> AddAsync(User user)
         {
             user.Password = user.Password.GetHash();
-            easyShoppingDbContext.Users.Add(user);
+            this.easyShoppingDbContext.Users.Add(user);
 
             int result = await this.easyShoppingDbContext.SaveChangesAsync();
 
