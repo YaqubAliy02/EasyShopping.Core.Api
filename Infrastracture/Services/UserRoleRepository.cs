@@ -37,7 +37,7 @@ namespace Infrastracture.Services
             return false;
         }
 
-        public async Task<IQueryable> GetAsync(Expression<Func<UserRole, bool>> expression)
+        public async Task<IQueryable<UserRole>> GetAsync(Expression<Func<UserRole, bool>> expression)
         {
             return this.easyShoppingDbContext.Roles.Where(expression);
         }

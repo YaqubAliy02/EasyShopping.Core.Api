@@ -44,9 +44,9 @@ namespace Infrastracture.Services
             return false;
         }
 
-        public Task<IQueryable> GetAsync(Expression<Func<User, bool>> expression)
+        public async Task<IQueryable<User>> GetAsync(Expression<Func<User, bool>> expression)
         {
-            return (Task<IQueryable>)this.easyShoppingDbContext.Users.Where(expression)
+            return this.easyShoppingDbContext.Users.Where(expression)
                 .Include(x => x.Products)
                 .Include(x => x.Comments)
                 .Include(x => x.ShoppingCart)
