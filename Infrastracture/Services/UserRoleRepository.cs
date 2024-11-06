@@ -31,10 +31,13 @@ namespace Infrastracture.Services
 
             if (userRole is not null)
             {
+                this.easyShoppingDbContext.Roles.Remove(userRole);
                 int result = await this.easyShoppingDbContext.SaveChangesAsync();
                 if (result > 0) return true;
             }
+            
             return false;
+
         }
 
         public async Task<IQueryable<UserRole>> GetAsync(Expression<Func<UserRole, bool>> expression)
