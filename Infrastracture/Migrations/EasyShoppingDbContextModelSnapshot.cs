@@ -257,19 +257,14 @@ namespace Infrastracture.Migrations
 
             modelBuilder.Entity("Domain.Models.UserRole", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("RoleId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<string>("Role")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
+                    b.HasKey("RoleId");
 
                     b.ToTable("Roles");
                 });
@@ -287,6 +282,21 @@ namespace Infrastracture.Migrations
                     b.HasIndex("ShoppingCartId");
 
                     b.ToTable("ProductShoppingCart");
+                });
+
+            modelBuilder.Entity("UserUserRole", b =>
+                {
+                    b.Property<Guid>("UserRolesRoleId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UsersId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("UserRolesRoleId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("UserUserRole");
                 });
 
             modelBuilder.Entity("Domain.Models.Comment", b =>
@@ -398,17 +408,6 @@ namespace Infrastracture.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.Models.UserRole", b =>
-                {
-                    b.HasOne("Domain.Models.User", "User")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("ProductShoppingCart", b =>
                 {
                     b.HasOne("Domain.Models.Product", null)
@@ -420,6 +419,21 @@ namespace Infrastracture.Migrations
                     b.HasOne("Domain.Models.ShoppingCart", null)
                         .WithMany()
                         .HasForeignKey("ShoppingCartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("UserUserRole", b =>
+                {
+                    b.HasOne("Domain.Models.UserRole", null)
+                        .WithMany()
+                        .HasForeignKey("UserRolesRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -459,8 +473,6 @@ namespace Infrastracture.Migrations
                     b.Navigation("ShoppingCart");
 
                     b.Navigation("SubComments");
-
-                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

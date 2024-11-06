@@ -41,7 +41,7 @@ namespace Application.Repository
         {
             return this.easyShoppingDbContext.Roles.Where(expression);
         }
-
+            
         public async Task<UserRole> GetByIdAsync(Guid id)
         {
             return await this.easyShoppingDbContext.Roles.Where(x => x.RoleId == id).SingleOrDefaultAsync();

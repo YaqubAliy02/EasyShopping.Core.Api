@@ -28,6 +28,8 @@ namespace Infrastracture.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasIndex(option => option.Email).IsUnique();
+            modelBuilder.Entity<UserRole>().HasKey(ur => ur.RoleId);
         }
+
     }
 }

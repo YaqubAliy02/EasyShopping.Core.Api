@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastracture.Migrations
 {
     /// <inheritdoc />
-    public partial class InitEasyShopping : Migration
+    public partial class InitEasyShoppingDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,6 +21,18 @@ namespace Infrastracture.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    RoleId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Role = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.RoleId);
                 });
 
             migrationBuilder.CreateTable(
@@ -92,25 +104,6 @@ namespace Infrastracture.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Roles",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Role = table.Column<string>(type: "text", nullable: true),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Roles", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Roles_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ShoppingCarts",
                 columns: table => new
                 {
@@ -124,6 +117,30 @@ namespace Infrastracture.Migrations
                     table.ForeignKey(
                         name: "FK_ShoppingCarts_Users_UserId",
                         column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserUserRole",
+                columns: table => new
+                {
+                    UserRolesRoleId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UsersId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserUserRole", x => new { x.UserRolesRoleId, x.UsersId });
+                    table.ForeignKey(
+                        name: "FK_UserUserRole_Roles_UserRolesRoleId",
+                        column: x => x.UserRolesRoleId,
+                        principalTable: "Roles",
+                        principalColumn: "RoleId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserUserRole_Users_UsersId",
+                        column: x => x.UsersId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -302,11 +319,6 @@ namespace Infrastracture.Migrations
                 column: "ShoppingCartId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Roles_UserId",
-                table: "Roles",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ShoppingCarts_UserId",
                 table: "ShoppingCarts",
                 column: "UserId");
@@ -326,6 +338,11 @@ namespace Infrastracture.Migrations
                 table: "Users",
                 column: "Email",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserUserRole_UsersId",
+                table: "UserUserRole",
+                column: "UsersId");
         }
 
         /// <inheritdoc />
@@ -341,10 +358,10 @@ namespace Infrastracture.Migrations
                 name: "ProductShoppingCart");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "SubComments");
 
             migrationBuilder.DropTable(
-                name: "SubComments");
+                name: "UserUserRole");
 
             migrationBuilder.DropTable(
                 name: "Orders");
@@ -354,6 +371,9 @@ namespace Infrastracture.Migrations
 
             migrationBuilder.DropTable(
                 name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Products");

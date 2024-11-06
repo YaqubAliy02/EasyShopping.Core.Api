@@ -27,7 +27,6 @@ namespace EasyShopping.Core.Api
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.Run();
