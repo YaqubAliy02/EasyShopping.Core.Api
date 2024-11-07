@@ -11,6 +11,7 @@ namespace Application.UseCases.Users.Command
 {
     public class UpdateUserCommand : IRequest<IActionResult>
     {
+        public Guid Id { get; set; }
         public string UserName { get; set; }
         [EmailAddress]
         public string Email { get; set; }
@@ -39,7 +40,7 @@ namespace Application.UseCases.Users.Command
 
             if (user is null) return new BadRequestObjectResult(request);
 
-            UserGetDto userGetDto = this.mapper.Map<UserGetDto>(user);
+            var userGetDto = this.mapper.Map<UserGetDto>(user);
 
             return new OkObjectResult(userGetDto);
         }

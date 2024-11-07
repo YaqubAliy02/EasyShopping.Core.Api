@@ -12,7 +12,7 @@ namespace Application.Mappings
     {
         public MappingProfiles()
         {
-           UserMappingRules();
+            UserMappingRules();
             UserRoleMappingRules();
         }
 
@@ -31,6 +31,11 @@ namespace Application.Mappings
 
             CreateMap<User, CreateUserCommandHandlerResult>();
             CreateMap<User, UserGetDto>();
+
+            CreateMap<UpdateUserCommand, User>()
+                .ForMember(destination => destination.UserRoles,
+                option => option.MapFrom(src => src.RolesId
+                .Select(x => new UserRole() { RoleId = x })));
         }
     }
 }

@@ -65,7 +65,7 @@ namespace Infrastracture.Services
                 .Include(x => x.SubComments)
                 .Include(x => x.UserRoles)
                 .Include(x => x.Orders)
-                .SingleOrDefaultAsync();
+                .FirstOrDefaultAsync();
         }
 
         public async Task<User> UpdateAsync(User user)
@@ -79,7 +79,7 @@ namespace Infrastracture.Services
 
                 existingUser.UserRoles.Clear();
 
-                foreach (var role in existingUser.UserRoles)
+                foreach (var role in user.UserRoles)
                 {
                     var existingRole = await this.easyShoppingDbContext.Roles.FindAsync(role.RoleId);
 
@@ -96,6 +96,7 @@ namespace Infrastracture.Services
 
             return null;
         }
+
     }
 }
 

@@ -13,3 +13,18 @@ namespace Application.DTOs.User
         public Guid[] RolesId { get; set; }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
