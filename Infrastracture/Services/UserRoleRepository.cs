@@ -1,8 +1,8 @@
-﻿using Application.Abstraction;
+﻿using System.Linq.Expressions;
+using Application.Abstraction;
 using Application.Repository;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace Infrastracture.Services
 {
@@ -35,7 +35,7 @@ namespace Infrastracture.Services
                 int result = await this.easyShoppingDbContext.SaveChangesAsync();
                 if (result > 0) return true;
             }
-            
+
             return false;
 
         }

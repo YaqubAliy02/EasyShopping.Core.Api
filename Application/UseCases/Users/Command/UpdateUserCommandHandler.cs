@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using Application.DTOs.User;
 using Application.Repository;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Domain.Models;
-using Application.DTOs.User;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Application.UseCases.Users.Command
 {
@@ -25,17 +25,17 @@ namespace Application.UseCases.Users.Command
         private readonly IMapper mapper;
 
         public UpdateUserCommandHandler(
-            IUserRepository userRepository, 
+            IUserRepository userRepository,
             IMapper mapper)
         {
             this.userRepository = userRepository;
             this.mapper = mapper;
         }
 
-        public async Task<IActionResult> Handle(UpdateUserCommand request, 
+        public async Task<IActionResult> Handle(UpdateUserCommand request,
             CancellationToken cancellationToken)
         {
-            var user =  this.mapper.Map<User>(request);
+            var user = this.mapper.Map<User>(request);
             user = await this.userRepository.UpdateAsync(user);
 
             if (user is null) return new BadRequestObjectResult(request);

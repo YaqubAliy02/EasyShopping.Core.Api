@@ -12,6 +12,6 @@ namespace EasyShopping.Core.Api.Controllers
 
         protected IMapper Mapper => this.mapper ?? HttpContext
             .RequestServices.GetRequiredService<IMapper>();
-        
+
     }
 }

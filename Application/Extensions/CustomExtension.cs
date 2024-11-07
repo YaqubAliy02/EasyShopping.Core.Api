@@ -13,7 +13,7 @@ namespace Application.Extensions
 
             StringBuilder builder = new();
 
-            for(int i = 0;  i < hashBytes.Length; i++)
+            for (int i = 0; i < hashBytes.Length; i++)
             {
                 builder.Append(hashBytes[i].ToString("x2"));
             }

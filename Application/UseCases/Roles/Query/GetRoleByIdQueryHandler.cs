@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Application.UseCases.Roles.Query
 {
-    public class GetRoleByIdQuery : IRequest<IActionResult> 
+    public class GetRoleByIdQuery : IRequest<IActionResult>
     {
         public Guid RoleId { get; set; }
     }
@@ -22,7 +22,7 @@ namespace Application.UseCases.Roles.Query
         {
             UserRole userRole = await this.userRoleRepository.GetByIdAsync(request.RoleId);
 
-            if (userRole is null)  
+            if (userRole is null)
                 return new NotFoundObjectResult($"User Role Id: {request.RoleId} is not found");
 
             return new OkObjectResult(userRole);

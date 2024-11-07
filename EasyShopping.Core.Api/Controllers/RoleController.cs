@@ -1,7 +1,5 @@
-﻿using System.Linq.Expressions;
-using Application.UseCases.Roles.Command;
+﻿using Application.UseCases.Roles.Command;
 using Application.UseCases.Roles.Query;
-using Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,14 +37,14 @@ namespace EasyShopping.Core.Api.Controllers
 
 
         [HttpPut("[action]")]
-        public async Task<IActionResult> UpdateRoleAsync([FromBody] 
+        public async Task<IActionResult> UpdateRoleAsync([FromBody]
         UpdateRoleCommand updateRoleCommand)
         {
             return await this.mediator.Send(updateRoleCommand);
         }
 
         [HttpDelete("[action]")]
-        public async Task<IActionResult> DeleteRoleAsync([FromQuery]  DeleteRoleCommand deleteRoleCommand)
+        public async Task<IActionResult> DeleteRoleAsync([FromQuery] DeleteRoleCommand deleteRoleCommand)
         {
             return await this.mediator.Send(deleteRoleCommand);
         }

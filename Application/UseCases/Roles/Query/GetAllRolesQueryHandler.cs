@@ -18,7 +18,7 @@ namespace Application.UseCases.Roles.Query
         public async Task<IActionResult> Handle(GetAllRolesQuery request, CancellationToken cancellationToken)
         {
             IQueryable<UserRole> role = await this.userRoleRepository.GetAsync(x => true);
-            
+
             return new OkObjectResult(role);
         }
     }

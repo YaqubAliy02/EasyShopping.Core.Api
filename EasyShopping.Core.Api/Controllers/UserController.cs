@@ -23,7 +23,7 @@ namespace EasyShopping.Core.Api.Controllers
         }
 
         [HttpGet("[action]")]
-        public Task<IActionResult> GetUserByIdAsync([FromQuery]GetUserByIdQuery getUserByIdQuery)
+        public Task<IActionResult> GetUserByIdAsync([FromQuery] GetUserByIdQuery getUserByIdQuery)
         {
             return this.mediator.Send(getUserByIdQuery);
         }

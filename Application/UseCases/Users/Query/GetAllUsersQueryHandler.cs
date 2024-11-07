@@ -1,7 +1,6 @@
 ﻿using Application.DTOs.User;
 using Application.Repository;
 using AutoMapper;
-using Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

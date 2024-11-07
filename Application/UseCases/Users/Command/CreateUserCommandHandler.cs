@@ -1,13 +1,11 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using Application.Abstraction;
 using Application.Models;
 using Application.Repository;
 using AutoMapper;
 using Domain.Models;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Application.UseCases.Users.Command
 {
@@ -45,14 +43,14 @@ namespace Application.UseCases.Users.Command
             User user = this.mapper.Map<User>(request);
             var validationResult = this.validator.Validate(user);
 
-            if(!validationResult.IsValid)
+            if (!validationResult.IsValid)
             {
                 result.ErrorMessage = validationResult.Errors.ToArray();
                 result.StatusCode = 400;
 
                 return result;
             }
-            if(user is null)
+            if (user is null)
             {
                 result.ErrorMessage = new string[] { "User is not found" };
                 result.StatusCode = 400;
@@ -60,12 +58,12 @@ namespace Application.UseCases.Users.Command
                 return result;
             }
             List<UserRole> roles = new();
-            for(int i = 0; i < user.UserRoles.Count; i++)
+            for (int i = 0; i < user.UserRoles.Count; i++)
             {
                 UserRole role = user.UserRoles.ToArray()[i];
                 role = await this.roleRepository.GetByIdAsync(role.RoleId);
 
-                if(role is null)
+                if (role is null)
                 {
                     result.ErrorMessage = new string[] { "Role Id: " + role.RoleId + "Not found" };
                     result.StatusCode = 400;

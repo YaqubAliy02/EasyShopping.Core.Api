@@ -22,9 +22,9 @@ namespace Application.UseCases.Users.Query
         public async Task<IActionResult> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
             User user = await this.userRepository.GetByIdAsync(request.Id);
-            if (user is null) 
+            if (user is null)
                 return new NotFoundObjectResult($"User Id: {request.Id} is not found");
-            
+
             return new OkObjectResult(user);
         }
     }
