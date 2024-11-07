@@ -21,10 +21,18 @@ namespace EasyShopping.Core.Api.Controllers
             var result = await this.mediator.Send(createUserCommand);
             return result.StatusCode == 200 ? Ok(result) : BadRequest(result);
         }
+
         [HttpGet("[action]")]
         public Task<IActionResult> GetUserByIdAsync([FromQuery]GetUserByIdQuery getUserByIdQuery)
         {
             return this.mediator.Send(getUserByIdQuery);
         }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllUsersAsync()
+        {
+            return await this.mediator.Send(new GetAllUserQuery());
+        }
+
     }
 }

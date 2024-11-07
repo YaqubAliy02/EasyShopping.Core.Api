@@ -1,5 +1,6 @@
 ﻿//using Application.UseCases.Roles.Command;
 //using Application.UseCases.Users.Commands;
+using Application.DTOs.User;
 using Application.UseCases.Roles.Command;
 using Application.UseCases.Users.Command;
 using AutoMapper;
@@ -29,6 +30,7 @@ namespace Application.Mappings
                 .Select(x => new UserRole() { RoleId = x })));
 
             CreateMap<User, CreateUserCommandHandlerResult>();
+            CreateMap<User, UserGetDto>();
         }
     }
 }
