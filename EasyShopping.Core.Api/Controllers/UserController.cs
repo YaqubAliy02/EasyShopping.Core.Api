@@ -45,5 +45,11 @@ namespace EasyShopping.Core.Api.Controllers
         {
             return await this.mediator.Send(deleteUserCommand);
         }
+
+        [HttpPut("[action]")]
+        public async Task<IActionResult> ChangeUserPasswordAsync([FromBody] ChangeUserPassword changeUserPassword)
+        {
+            return await this.mediator.Send(changeUserPassword);
+        }
     }
 }

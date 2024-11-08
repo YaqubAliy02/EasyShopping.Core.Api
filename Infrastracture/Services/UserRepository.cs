@@ -97,6 +97,16 @@ namespace Infrastracture.Services
             return null;
         }
 
+        public async Task UpdatePasswordAsync(User user)
+        {
+            var existingUser = await GetByIdAsync(user.Id);
+
+            if (existingUser is not null)
+            {
+                existingUser.Password = user.Password;
+                await this.easyShoppingDbContext.SaveChangesAsync();
+            }
+        }
     }
 }
 

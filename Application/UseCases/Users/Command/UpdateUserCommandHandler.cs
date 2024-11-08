@@ -15,8 +15,6 @@ namespace Application.UseCases.Users.Command
         public string UserName { get; set; }
         [EmailAddress]
         public string Email { get; set; }
-        [PasswordPropertyText]
-        public string Password { get; set; }
         public Guid[] RolesId { get; set; }
     }
     public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, IActionResult>
