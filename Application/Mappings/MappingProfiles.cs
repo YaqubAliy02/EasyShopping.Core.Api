@@ -1,4 +1,5 @@
 ﻿using Application.DTOs.Users;
+using Application.Models;
 using Application.UseCases.Accounts.Command;
 using Application.UseCases.Roles.Command;
 using Application.UseCases.Users.Command;
@@ -42,6 +43,7 @@ namespace Application.Mappings
                 .Select(x => new UserRole() { RoleId = x })));
 
             CreateMap<User, RegisterUserCommandResult>();
+            CreateMap<Token, RefreshTokenCommandResult>();
         }
     }
 }

@@ -17,6 +17,22 @@
   },
   {
     "ContainingType": "EasyShopping.Core.Api.Controllers.AccountController",
+    "Method": "RefreshUserToken",
+    "RelativePath": "api/Account/RefreshUserToken",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "refreshTokenCommand",
+        "Type": "Application.UseCases.Accounts.Command.RefreshTokenCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.AccountController",
     "Method": "RegisterUser",
     "RelativePath": "api/Account/Register",
     "HttpMethod": "POST",

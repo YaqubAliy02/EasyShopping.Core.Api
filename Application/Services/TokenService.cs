@@ -116,5 +116,44 @@ namespace Application.Services
         private string GenerateRefreshToken() =>
                (DateTime.UtcNow.ToString() + this.configuration["JWT:Key"]).GetHash();
 
+        public Task<Token> CreateTokenFromRefresh(ClaimsPrincipal principal, RefreshToken savedRefreshToken)
+        {
+            Token tokens = CreateToken(principal.Claims);
+            savedRefreshToken.RefreshTokenValue = tokens.RefreshToken;
+            savedRefreshToken.ExpiredDate = DateTime.UtcNow.AddMinutes(this.refreshTokenLifetime);
+
+            Update(savedRefreshToken);
+
+            return Task.FromResult(tokens); 
+        }
+
+        public ClaimsPrincipal GetClaimsFromExpiredToken(string expiredToken)
+        {
+            byte[] key = Encoding.UTF8.GetBytes(this.configuration["JWT:Key"]);
+
+            var tokenParams = new TokenValidationParameters()
+            {
+                ValidateAudience = true,
+                ValidAudience = this.configuration["JWT:AudienceKey"],
+                ValidateIssuer = true,
+                ValidateLifetime = false,
+                ValidIssuer = this.configuration["JWT:IssuerKey"],
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ClockSkew = TimeSpan.Zero
+            };
+
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            ClaimsPrincipal principal  = tokenHandler
+                .ValidateToken(expiredToken, tokenParams, out SecurityToken securityToken);
+
+            JwtSecurityToken jwtSecurityToken = securityToken as JwtSecurityToken;
+
+            if (jwtSecurityToken is null)
+            {
+                throw new SecurityTokenException("Invalid token");
+            }
+            
+            return principal;
+        }
     }
 }

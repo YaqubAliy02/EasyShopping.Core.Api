@@ -30,5 +30,13 @@ namespace EasyShopping.Core.Api.Controllers
             return this.mediator.Send(loginUserCommand);
         }
 
+        [HttpPost]
+        [Route("RefreshUserToken")]
+        public async Task<IActionResult> RefreshUserToken([FromBody] RefreshTokenCommand refreshTokenCommand)
+        {
+            var result = await this.mediator.Send(refreshTokenCommand);
+
+            return result.StatusCode == 200 ? Ok(result) : BadRequest(result);
+        }
     }
 }
