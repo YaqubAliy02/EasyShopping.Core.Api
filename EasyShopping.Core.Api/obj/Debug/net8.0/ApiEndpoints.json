@@ -1,6 +1,22 @@
 [
   {
     "ContainingType": "EasyShopping.Core.Api.Controllers.AccountController",
+    "Method": "LoginUserAsync",
+    "RelativePath": "api/Account/LoginUser",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginUserCommand",
+        "Type": "Application.UseCases.Accounts.Command.LoginUserCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.AccountController",
     "Method": "RegisterUser",
     "RelativePath": "api/Account/Register",
     "HttpMethod": "POST",
@@ -9,7 +25,7 @@
     "Parameters": [
       {
         "Name": "registerUserCommand",
-        "Type": "Application.UseCases.Accounts.RegisterUserCommand",
+        "Type": "Application.UseCases.Accounts.Command.RegisterUserCommand",
         "IsRequired": true
       }
     ],

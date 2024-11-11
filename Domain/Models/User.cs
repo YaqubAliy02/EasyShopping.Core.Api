@@ -1,4 +1,5 @@
-﻿namespace Domain.Models
+﻿
+namespace Domain.Models
 {
     public class User
     {
@@ -13,5 +14,6 @@
         public ICollection<Comment> Comments { get; set; }
         public ICollection<SubComment> SubComments { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
+
     }
 }

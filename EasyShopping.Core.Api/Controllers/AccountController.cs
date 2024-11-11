@@ -1,4 +1,4 @@
-﻿using Application.UseCases.Accounts;
+﻿using Application.UseCases.Accounts.Command;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +22,12 @@ namespace EasyShopping.Core.Api.Controllers
             var result = await this.mediator.Send(registerUserCommand);
 
             return result.StatusCode == 200 ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("[action]")]
+        public Task<IActionResult> LoginUserAsync(LoginUserCommand loginUserCommand)
+        {
+            return this.mediator.Send(loginUserCommand);
         }
 
     }

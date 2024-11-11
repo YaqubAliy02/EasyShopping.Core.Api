@@ -9,7 +9,7 @@ using Domain.Models;
 using Application.DTOs.Users;
 using Application.Abstraction;
 
-namespace Application.UseCases.Accounts
+namespace Application.UseCases.Accounts.Command
 {
     public class RegisterUserCommand : IRequest<ResponseCore<RegisterUserCommandResult>>
     {
@@ -48,8 +48,8 @@ namespace Application.UseCases.Accounts
 
             /*var defaultRole = await this.roleRepository.GetRoleByNameAsync("User");
             request.RolesId = new Guid[] { defaultRole.RoleId };*/
-            User user = this.mapper.Map<User>(request);
-            var validationResult = this.validator.Validate(user);
+            User user = mapper.Map<User>(request);
+            var validationResult = validator.Validate(user);
 
             if (!validationResult.IsValid)
             {
@@ -72,7 +72,7 @@ namespace Application.UseCases.Accounts
                 for (int i = 0; i < user.UserRoles.Count; i++)
                 {
                     UserRole role = user.UserRoles.ToArray()[i];
-                    role = await this.roleRepository.GetByIdAsync(role.RoleId);
+                    role = await roleRepository.GetByIdAsync(role.RoleId);
 
                     if (role is null)
                     {
@@ -91,12 +91,12 @@ namespace Application.UseCases.Accounts
                 UserRegisterDto userRegisterDto = new UserRegisterDto()
                 {
                     User = user,
-                    UserToken = await this.tokenService.CreateTokenAsync(user)
+                    UserToken = await tokenService.CreateTokenAsync(user)
                 };
             }
-            user = await this.userRepository.AddAsync(user);
+            user = await userRepository.AddAsync(user);
 
-            result.Result = this.mapper.Map<RegisterUserCommandResult>(user);
+            result.Result = mapper.Map<RegisterUserCommandResult>(user);
             result.StatusCode = 200;
 
             return result;
@@ -106,12 +106,12 @@ namespace Application.UseCases.Accounts
 
 
     public class RegisterUserCommandResult
-        {
-            public string UserName { get; set; }
-            [EmailAddress]
-            public string Email { get; set; }
-            [PasswordPropertyText]
-            public string Password { get; set; }
-            public Guid[] RolesId { get; set; }
-        }
+    {
+        public string UserName { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
+        [PasswordPropertyText]
+        public string Password { get; set; }
+        public Guid[] RolesId { get; set; }
     }
+}
