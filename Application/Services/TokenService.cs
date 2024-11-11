@@ -21,9 +21,7 @@ namespace Application.Services
 
         public TokenService(
             IConfiguration configuration,
-            IEasyShoppingDbContext context,
-            int refreshTokenLifetime,
-            int accessTokenLifetime)
+            IEasyShoppingDbContext context)
         {
             this.configuration = configuration;
             this.context = context;

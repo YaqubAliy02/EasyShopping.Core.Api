@@ -46,8 +46,8 @@ namespace Application.UseCases.Accounts
         {
             var result = new ResponseCore<RegisterUserCommandResult>();
 
-            var defaultRole = await this.roleRepository.GetRoleByNameAsync("User");
-            request.RolesId = new Guid[] { defaultRole.RoleId };
+            /*var defaultRole = await this.roleRepository.GetRoleByNameAsync("User");
+            request.RolesId = new Guid[] { defaultRole.RoleId };*/
             User user = this.mapper.Map<User>(request);
             var validationResult = this.validator.Validate(user);
 

@@ -1,6 +1,5 @@
-﻿//using Application.UseCases.Roles.Command;
-//using Application.UseCases.Users.Commands;
-using Application.DTOs.Users;
+﻿using Application.DTOs.Users;
+using Application.UseCases.Accounts;
 using Application.UseCases.Roles.Command;
 using Application.UseCases.Users.Command;
 using AutoMapper;
@@ -36,6 +35,13 @@ namespace Application.Mappings
                 .ForMember(destination => destination.UserRoles,
                 option => option.MapFrom(src => src.RolesId
                 .Select(x => new UserRole() { RoleId = x })));
+
+            CreateMap<RegisterUserCommand, User>()
+                .ForMember(destination => destination.UserRoles,
+                options => options.MapFrom(src => src.RolesId
+                .Select(x => new UserRole() { RoleId = x })));
+
+            CreateMap<User, RegisterUserCommandResult>();
         }
     }
 }

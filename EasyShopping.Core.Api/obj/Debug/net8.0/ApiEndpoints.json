@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.AccountController",
+    "Method": "RegisterUser",
+    "RelativePath": "api/Account/Register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "registerUserCommand",
+        "Type": "Application.UseCases.Accounts.RegisterUserCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EasyShopping.Core.Api.Controllers.RoleController",
     "Method": "CreateRole",
     "RelativePath": "api/Role/CreateRole",

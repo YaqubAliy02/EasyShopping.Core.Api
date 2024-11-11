@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
+using Application.Abstraction;
 using Application.Mappings;
+using Application.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -16,6 +18,7 @@ namespace Application
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
+            services.AddScoped<ITokenService, TokenService>();
             return services;
         }
     }
