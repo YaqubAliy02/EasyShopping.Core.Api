@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.DTOs.User
+namespace Application.DTOs.Users
 {
     public class UserGetDto
     {
@@ -13,6 +13,7 @@ namespace Application.DTOs.User
         public Guid[] RolesId { get; set; }
     }
 }
+
 
 
 

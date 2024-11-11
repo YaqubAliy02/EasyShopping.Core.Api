@@ -15,6 +15,7 @@ C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\MediatR.Contracts.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.Bcl.TimeProvider.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
@@ -30,6 +31,10 @@ C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.OpenApi.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Mono.TextTemplating.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Npgsql.dll
@@ -43,6 +48,7 @@ C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\System.Composition.Hosting.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\System.Composition.Runtime.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\System.Composition.TypedParts.dll
+C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll

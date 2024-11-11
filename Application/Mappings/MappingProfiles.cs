@@ -1,6 +1,6 @@
 ﻿//using Application.UseCases.Roles.Command;
 //using Application.UseCases.Users.Commands;
-using Application.DTOs.User;
+using Application.DTOs.Users;
 using Application.UseCases.Roles.Command;
 using Application.UseCases.Users.Command;
 using AutoMapper;

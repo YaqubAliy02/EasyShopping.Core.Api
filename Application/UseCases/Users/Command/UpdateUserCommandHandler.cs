@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using Application.DTOs.User;
+using Application.DTOs.Users;
 using Application.Repository;
 using AutoMapper;
 using Domain.Models;
