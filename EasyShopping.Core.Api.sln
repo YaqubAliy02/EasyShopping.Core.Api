@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyShopping.Core.Api", "Ea
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{5E0403F3-AC39-4735-BB49-502EBF9992C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastracture", "Infrastracture\Infrastracture.csproj", "{3D4A29D1-5393-473D-AB0E-1986D891DBE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastracture", "Infrastracture\Infrastracture.csproj", "{3D4A29D1-5393-473D-AB0E-1986D891DBE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{A7FE01F7-AF63-4DA5-8892-22E71BBA8E12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{A7FE01F7-AF63-4DA5-8892-22E71BBA8E12}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "reactclient", "ReactClient\reactclient.esproj", "{0EB6CE9E-8542-43E8-8A49-C7E62EF4D68C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,12 @@ Global
 		{A7FE01F7-AF63-4DA5-8892-22E71BBA8E12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7FE01F7-AF63-4DA5-8892-22E71BBA8E12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7FE01F7-AF63-4DA5-8892-22E71BBA8E12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EB6CE9E-8542-43E8-8A49-C7E62EF4D68C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EB6CE9E-8542-43E8-8A49-C7E62EF4D68C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EB6CE9E-8542-43E8-8A49-C7E62EF4D68C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0EB6CE9E-8542-43E8-8A49-C7E62EF4D68C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EB6CE9E-8542-43E8-8A49-C7E62EF4D68C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EB6CE9E-8542-43E8-8A49-C7E62EF4D68C}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
