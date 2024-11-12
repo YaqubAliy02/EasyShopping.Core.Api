@@ -1,6 +1,16 @@
 [
   {
     "ContainingType": "EasyShopping.Core.Api.Controllers.AccountController",
+    "Method": "GetAllUsersAsync",
+    "RelativePath": "api/Account/GetAllUsers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.AccountController",
     "Method": "LoginUserAsync",
     "RelativePath": "api/Account/LoginUser",
     "HttpMethod": "POST",

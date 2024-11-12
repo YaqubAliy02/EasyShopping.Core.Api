@@ -24,9 +24,10 @@ namespace Application.UseCases.Accounts.Query
         {
             var users = await this.userRepository.GetAsync(x => true);
 
-            var resultUser = this.mapper.Map<UserGetDto>(users.AsEnumerable());
+            var resultUser = this.mapper
+                .Map<IEnumerable<UserGetDto>>(users.AsEnumerable());
 
-            return new OkObjectResult(resultUser);
+            return new OkObjectResult(users);
         }
     }
 }

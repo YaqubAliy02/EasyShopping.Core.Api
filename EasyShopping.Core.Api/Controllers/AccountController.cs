@@ -1,4 +1,5 @@
 ﻿using Application.UseCases.Accounts.Command;
+using Application.UseCases.Accounts.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,6 +44,12 @@ namespace EasyShopping.Core.Api.Controllers
         public async Task<IActionResult> UpdateUserAsync([FromBody] ModifyUserCommand updateUserCommand)
         {
             return  await this.mediator.Send(updateUserCommand);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllUsersAsync()
+        {
+            return  await this.mediator.Send(new GetAllUserQuery());
         }
     }
 }
