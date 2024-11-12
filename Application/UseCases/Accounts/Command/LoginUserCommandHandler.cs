@@ -6,7 +6,6 @@ using Application.Extensions;
 using Application.Repository;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.UseCases.Accounts.Command
 {

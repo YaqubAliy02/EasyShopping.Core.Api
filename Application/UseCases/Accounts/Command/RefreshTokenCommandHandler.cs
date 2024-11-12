@@ -5,7 +5,6 @@ using Application.Models;
 using AutoMapper;
 using Domain.Models;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.UseCases.Accounts.Command

@@ -22,7 +22,7 @@ namespace Application.UseCases.Accounts.Command
         public readonly IUserRepository userRepository;
 
         public ModifyUserCommandHandler(
-            IMapper mapper, 
+            IMapper mapper,
             IUserRepository userRepository)
         {
             this.mapper = mapper;
@@ -34,7 +34,7 @@ namespace Application.UseCases.Accounts.Command
             var user = this.mapper.Map<User>(request);
             user = await this.userRepository.UpdateAsync(user);
 
-            if (user is null) 
+            if (user is null)
                 return new BadRequestObjectResult(request);
 
             var userGetDto = this.mapper.Map<UserGetDto>(user);

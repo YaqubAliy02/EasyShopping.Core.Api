@@ -44,7 +44,7 @@ namespace Application.Mappings
 
             CreateMap<User, RegisterUserCommandResult>();
             CreateMap<Token, RefreshTokenCommandResult>();
-            CreateMap<ModifyUserCommand,User>();
+            CreateMap<ModifyUserCommand, User>();
             CreateMap<UserGetDto, User>();
         }
     }

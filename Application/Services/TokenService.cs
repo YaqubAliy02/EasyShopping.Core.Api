@@ -124,7 +124,7 @@ namespace Application.Services
 
             Update(savedRefreshToken);
 
-            return Task.FromResult(tokens); 
+            return Task.FromResult(tokens);
         }
 
         public ClaimsPrincipal GetClaimsFromExpiredToken(string expiredToken)
@@ -143,7 +143,7 @@ namespace Application.Services
             };
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-            ClaimsPrincipal principal  = tokenHandler
+            ClaimsPrincipal principal = tokenHandler
                 .ValidateToken(expiredToken, tokenParams, out SecurityToken securityToken);
 
             JwtSecurityToken jwtSecurityToken = securityToken as JwtSecurityToken;
@@ -152,7 +152,7 @@ namespace Application.Services
             {
                 throw new SecurityTokenException("Invalid token");
             }
-            
+
             return principal;
         }
     }

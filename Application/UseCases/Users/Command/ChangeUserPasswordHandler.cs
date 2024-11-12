@@ -1,6 +1,5 @@
 ﻿using Application.Extensions;
 using Application.Repository;
-using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +36,7 @@ namespace Application.UseCases.Users.Command
                 return new BadRequestObjectResult("New password and confirmation do not match");
 
             user.Password = request.NewPassword.GetHash();
-            await this.userRepository.UpdatePasswordAsync(user); 
+            await this.userRepository.UpdatePasswordAsync(user);
             return new OkObjectResult("Password changed successfully ✅");
         }
     }

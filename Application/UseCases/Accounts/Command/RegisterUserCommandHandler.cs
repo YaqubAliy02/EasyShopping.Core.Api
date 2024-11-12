@@ -1,13 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
-using MediatR;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using Application.Abstraction;
+using Application.DTOs.Users;
 using Application.Models;
 using Application.Repository;
 using AutoMapper;
-using FluentValidation;
 using Domain.Models;
-using Application.DTOs.Users;
-using Application.Abstraction;
+using FluentValidation;
+using MediatR;
 
 namespace Application.UseCases.Accounts.Command
 {
