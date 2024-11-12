@@ -48,6 +48,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.AccountController",
+    "Method": "UpdateUserAsync",
+    "RelativePath": "api/Account/UpdateUser",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "updateUserCommand",
+        "Type": "Application.UseCases.Accounts.Command.ModifyUserCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EasyShopping.Core.Api.Controllers.RoleController",
     "Method": "CreateRole",
     "RelativePath": "api/Role/CreateRole",

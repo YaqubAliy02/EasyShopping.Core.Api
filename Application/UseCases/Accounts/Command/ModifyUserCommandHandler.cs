@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Application.UseCases.Accounts.Command
 {
-    public class UpdateUserCommand : IRequest<IActionResult>
+    public class ModifyUserCommand : IRequest<IActionResult>
     {
         public Guid Id { get; set; }
         public string UserName { get; set; }
@@ -16,12 +16,12 @@ namespace Application.UseCases.Accounts.Command
         public string Email { get; set; }
         public Guid[] RolesId { get; set; }
     }
-    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, IActionResult>
+    public class ModifyUserCommandHandler : IRequestHandler<ModifyUserCommand, IActionResult>
     {
         public readonly IMapper mapper;
         public readonly IUserRepository userRepository;
 
-        public UpdateUserCommandHandler(
+        public ModifyUserCommandHandler(
             IMapper mapper, 
             IUserRepository userRepository)
         {
@@ -29,7 +29,7 @@ namespace Application.UseCases.Accounts.Command
             this.userRepository = userRepository;
         }
 
-        public async Task<IActionResult> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Handle(ModifyUserCommand request, CancellationToken cancellationToken)
         {
             var user = this.mapper.Map<User>(request);
             user = await this.userRepository.UpdateAsync(user);

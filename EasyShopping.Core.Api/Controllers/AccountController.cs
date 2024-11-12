@@ -1,6 +1,5 @@
 ﻿using Application.UseCases.Accounts.Command;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EasyShopping.Core.Api.Controllers
@@ -37,6 +36,13 @@ namespace EasyShopping.Core.Api.Controllers
             var result = await this.mediator.Send(refreshTokenCommand);
 
             return result.StatusCode == 200 ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPut]
+        [Route("UpdateUser")]
+        public async Task<IActionResult> UpdateUserAsync([FromBody] ModifyUserCommand updateUserCommand)
+        {
+            return  await this.mediator.Send(updateUserCommand);
         }
     }
 }
