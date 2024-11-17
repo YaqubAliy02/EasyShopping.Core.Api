@@ -1,6 +1,7 @@
 ﻿using Application.Abstraction;
 using Application.Repository;
 using Infrastracture.Data;
+using Infrastracture.External.Blobs;
 using Infrastracture.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +19,8 @@ namespace Infrastracture
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+            services.AddScoped<IBlobStorage, BlobStorage>();
+            services.AddScoped<IProductThumbnailRepository, ProductThumbnailRepository>();
             return services;
         }
     }
