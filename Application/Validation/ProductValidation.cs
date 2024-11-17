@@ -1,14 +1,14 @@
 ﻿using Application.UseCases.Products.Command;
+using Domain.Models;
 using FluentValidation;
-using FluentValidation.Validators;
 
 namespace Application.Validation
 {
-    public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
+    public class ProductValidation : AbstractValidator<Product>
     {
-        public CreateProductCommandValidator()
+        public ProductValidation()
         {
-            RuleFor(x => x.Name).NotEmpty();
+            RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required!");
             RuleFor(x => x.CostPrice).GreaterThan(0);
             RuleFor(x => x.SellingPrice).GreaterThan(0);
             RuleFor(x => x.StockQuantity).GreaterThanOrEqualTo(0);

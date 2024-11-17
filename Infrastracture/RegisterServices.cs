@@ -21,6 +21,7 @@ namespace Infrastracture
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
             services.AddScoped<IBlobStorage, BlobStorage>();
             services.AddScoped<IProductThumbnailRepository, ProductThumbnailRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
             return services;
         }
     }

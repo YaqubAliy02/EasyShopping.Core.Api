@@ -74,9 +74,25 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "EasyShopping.Core.Api.Controllers.ProductThumbnailContainer",
+    "ContainingType": "EasyShopping.Core.Api.Controllers.ProductController",
+    "Method": "CreateProductAsync",
+    "RelativePath": "api/Product/CreateProduct",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "createProductCommand",
+        "Type": "Application.UseCases.Products.Command.CreateProductCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.ProductThumbnailController",
     "Method": "UploadPhoto",
-    "RelativePath": "api/ProductThumbnailContainer/UploadPhoto",
+    "RelativePath": "api/ProductThumbnail/UploadPhoto",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
