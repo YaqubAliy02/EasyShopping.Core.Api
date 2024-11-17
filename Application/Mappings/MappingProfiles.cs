@@ -1,6 +1,7 @@
 ﻿using Application.DTOs.Users;
 using Application.Models;
 using Application.UseCases.Accounts.Command;
+using Application.UseCases.Products.Command;
 using Application.UseCases.Roles.Command;
 using Application.UseCases.Users.Command;
 using AutoMapper;
@@ -14,6 +15,7 @@ namespace Application.Mappings
         {
             UserMappingRules();
             UserRoleMappingRules();
+            ProductMappingRules();
         }
 
         private void UserRoleMappingRules()
@@ -46,6 +48,12 @@ namespace Application.Mappings
             CreateMap<Token, RefreshTokenCommandResult>();
             CreateMap<ModifyUserCommand, User>();
             CreateMap<UserGetDto, User>();
+        }
+
+
+        private void ProductMappingRules()
+        {
+            CreateMap<CreateProductCommand, Product>();
         }
     }
 }
