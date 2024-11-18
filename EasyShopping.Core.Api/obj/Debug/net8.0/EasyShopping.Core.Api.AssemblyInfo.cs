@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EasyShopping.Core.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e57431cf734469d67d054e7f85eb079139136e64")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fd9a630dce41c76145ae252511279d6bc7374d77")]
 [assembly: System.Reflection.AssemblyProductAttribute("EasyShopping.Core.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EasyShopping.Core.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -60,6 +60,7 @@ namespace Infrastracture.Services
         public async Task<Product> GetByIdAsync(Guid id)
         {
             return await this.easyShoppingDbContext.Products
+           .Where(p => p.Id.Equals(id))
            .Include(p => p.Category)
            .Include(p => p.Comments)
            .Include(p => p.ShoppingCart)
