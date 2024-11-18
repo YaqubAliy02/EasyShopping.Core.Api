@@ -1,5 +1,6 @@
 ﻿using Application.UseCases.Categories.Command;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EasyShopping.Core.Api.Controllers
@@ -15,6 +16,7 @@ namespace EasyShopping.Core.Api.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateCategoryAsync(
             [FromBody] CreateCategoryCommand createCategoryCommand)
         {

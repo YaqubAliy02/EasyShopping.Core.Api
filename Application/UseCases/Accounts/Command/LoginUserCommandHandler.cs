@@ -44,7 +44,7 @@ namespace Application.UseCases.Accounts.Command
                 };
                 return new OkObjectResult(userRegisterDto);
             }
-            return new BadRequestObjectResult("Email or Password is incorrect :(");
+            return new BadRequestObjectResult("Email or Password is incorrect :( ");
         }
     }
 }

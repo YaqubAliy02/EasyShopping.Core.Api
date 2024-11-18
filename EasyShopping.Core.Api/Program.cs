@@ -1,5 +1,6 @@
 using Application;
 using Infrastracture;
+using Microsoft.OpenApi.Models;
 namespace EasyShopping.Core.Api
 {
     public class Program
@@ -14,6 +15,34 @@ namespace EasyShopping.Core.Api
 
             builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddApplicationServices();
+
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Description = "Bearer Authentication with JWT token",
+                    Type = SecuritySchemeType.Http
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme()
+                        {
+                            Reference = new OpenApiReference()
+                            {
+                                Id = "Bearer",
+                                Type = ReferenceType.SecurityScheme
+                            },
+                        },
+                        new List<string>()
+                    }
+                });
+            });
 
             var app = builder.Build();
 

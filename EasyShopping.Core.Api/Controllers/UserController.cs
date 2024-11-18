@@ -1,6 +1,7 @@
 ﻿using Application.UseCases.Users.Command;
 using Application.UseCases.Users.Query;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EasyShopping.Core.Api.Controllers
@@ -16,6 +17,7 @@ namespace EasyShopping.Core.Api.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserCommand createUserCommand)
         {
             var result = await this.mediator.Send(createUserCommand);
@@ -23,30 +25,35 @@ namespace EasyShopping.Core.Api.Controllers
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = "Admin")]
         public Task<IActionResult> GetUserByIdAsync([FromQuery] GetUserByIdQuery getUserByIdQuery)
         {
             return this.mediator.Send(getUserByIdQuery);
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsersAsync()
         {
             return await this.mediator.Send(new GetAllUserQuery());
         }
 
         [HttpPut("[action]")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateUserAsync([FromBody] UpdateUserCommand updateUserCommand)
         {
             return await this.mediator.Send(updateUserCommand);
         }
 
         [HttpDelete("[action]")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUserAsync([FromQuery] DeleteUserCommand deleteUserCommand)
         {
             return await this.mediator.Send(deleteUserCommand);
         }
 
         [HttpPut("[action]")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ChangeUserPasswordAsync([FromBody] ChangeUserPassword changeUserPassword)
         {
             return await this.mediator.Send(changeUserPassword);

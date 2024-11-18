@@ -1,5 +1,7 @@
 ﻿using Application.UseCases.Products.Command;
+using Domain.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EasyShopping.Core.Api.Controllers
@@ -15,6 +17,7 @@ namespace EasyShopping.Core.Api.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> CreateProductAsync(
             [FromBody] CreateProductCommand createProductCommand)
         {

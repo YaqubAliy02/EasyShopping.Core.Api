@@ -135,3 +135,6 @@ C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\System.ClientModel.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\System.IO.Hashing.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\System.Memory.Data.dll
+C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll

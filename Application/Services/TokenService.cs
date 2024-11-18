@@ -8,7 +8,7 @@ using Application.Extensions;
 using Application.Models;
 using Domain.Models;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.IdentityModel.Tokens;  
 
 namespace Application.Services
 {

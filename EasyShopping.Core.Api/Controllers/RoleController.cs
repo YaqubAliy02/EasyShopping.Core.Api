@@ -1,6 +1,7 @@
 ﻿using Application.UseCases.Roles.Command;
 using Application.UseCases.Roles.Query;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EasyShopping.Core.Api.Controllers
@@ -16,6 +17,7 @@ namespace EasyShopping.Core.Api.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateRole([FromBody] CreateRoleCommand createRoleCommand)
         {
             var result = await this.mediator.Send(createRoleCommand);
@@ -24,18 +26,20 @@ namespace EasyShopping.Core.Api.Controllers
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetRoleAsync()
         {
             return await this.mediator.Send(new GetAllRolesQuery());
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetRoleByIdAsync([FromQuery] GetRoleByIdQuery getRoleByIdQuery)
         {
             return await this.mediator.Send(getRoleByIdQuery);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPut("[action]")]
         public async Task<IActionResult> UpdateRoleAsync([FromBody]
         UpdateRoleCommand updateRoleCommand)
@@ -43,6 +47,7 @@ namespace EasyShopping.Core.Api.Controllers
             return await this.mediator.Send(updateRoleCommand);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("[action]")]
         public async Task<IActionResult> DeleteRoleAsync([FromQuery] DeleteRoleCommand deleteRoleCommand)
         {
