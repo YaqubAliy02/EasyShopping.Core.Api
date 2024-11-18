@@ -15,6 +15,7 @@ namespace EasyShopping.Core.Api
 
             builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddApplicationServices();
+            builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddSwaggerGen(options =>
             {

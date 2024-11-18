@@ -1,10 +1,12 @@
-﻿using Application.Abstraction;
+﻿using System.Security.Claims;
+using Application.Abstraction;
 using Application.Models;
 using Application.Repository;
 using AutoMapper;
 using Domain.Models;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace Application.UseCases.Products.Command
 {
@@ -24,17 +26,20 @@ namespace Application.UseCases.Products.Command
         private readonly IValidator<Product> validator;
         private readonly IProductRepository productRepository;
         private readonly IEasyShoppingDbContext easyShoppingDbContext;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
         public CreateProductCommandHandler(
             IMapper mapper,
             IValidator<Product> validator,
             IProductRepository productRepository,
-            IEasyShoppingDbContext easyShoppingDbContext)
+            IEasyShoppingDbContext easyShoppingDbContext,
+            IHttpContextAccessor httpContextAccessor)
         {
             this.mapper = mapper;
             this.validator = validator;
             this.productRepository = productRepository;
             this.easyShoppingDbContext = easyShoppingDbContext;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<ResponseCore<CreateProductCommandHandlerResult>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
@@ -59,6 +64,19 @@ namespace Application.UseCases.Products.Command
 
                 return result;
             }
+
+            var userIdClaim = httpContextAccessor.HttpContext.User
+                .FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            if(string.IsNullOrEmpty(userIdClaim))
+            {
+                result.ErrorMessage = new string[] { "User is not authenticated" };
+                result.StatusCode = 401;
+
+                return result;
+            }
+
+            product.UserId = Guid.Parse(userIdClaim);
 
             product = await this.productRepository.AddAsync(product);
 

@@ -62,6 +62,8 @@ namespace Application.Mappings
         private void ProductMappingRules()
         {
             CreateMap<CreateProductCommand, Product>();
+            CreateMap<Product, CreateProductCommandHandlerResult>();
         }
     }
 }
+

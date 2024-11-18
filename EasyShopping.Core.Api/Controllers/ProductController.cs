@@ -17,7 +17,7 @@ namespace EasyShopping.Core.Api.Controllers
         }
 
         [HttpPost("[action]")]
-        [Authorize(Roles = "Seller")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateProductAsync(
             [FromBody] CreateProductCommand createProductCommand)
         {

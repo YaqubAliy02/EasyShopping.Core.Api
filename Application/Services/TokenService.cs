@@ -2,13 +2,14 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq.Expressions;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Application.Abstraction;
 using Application.Extensions;
 using Application.Models;
 using Domain.Models;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;  
+using Microsoft.IdentityModel.Tokens;
 
 namespace Application.Services
 {
@@ -34,23 +35,16 @@ namespace Application.Services
             List<Claim> claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             };
-
-            List<string> roles = new();
-            foreach (var role in user.UserRoles)
-            {
-                var eachRole = this.context.Roles
-                    .Where(x => x.RoleId.Equals(role.RoleId))
-                    .SingleOrDefault();
-
-                if (eachRole is not null
-                    && !roles.Contains(eachRole.Role))
-                {
-                    roles.Add(eachRole.Role);
-                    claims.Add(new Claim(ClaimTypes.Role, eachRole.Role));
-                }
-            }
+            var userRoleIds = user.UserRoles.Select(r => r.RoleId).ToList();
+            var roles = this.context.Roles
+                .Where(r => userRoleIds.Contains(r.RoleId))
+                .Select(r => r.Role).ToList();
             claims = claims.Distinct().ToList();
+
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+
             Token tokens = CreateToken(claims);
 
             var savedRefreshToken = Get(x => x.Email == user.Email).FirstOrDefault();
@@ -95,10 +89,18 @@ namespace Application.Services
 
         public async Task<bool> AddRefreshToken(RefreshToken refreshToken)
         {
-            await this.context.RefreshTokens.AddAsync(refreshToken);
-            await this.context.SaveChangesAsync();
+            try
+            {
+                await this.context.RefreshTokens.AddAsync(refreshToken);
+                await this.context.SaveChangesAsync();
 
-            return true;
+                return true;
+            }
+            catch (Exception exception)
+            {
+                throw new InvalidOperationException(
+                    "Failed to add refresh token" + exception.Message);
+            }
         }
 
         public bool Update(RefreshToken savedRefreshToken)
@@ -114,7 +116,7 @@ namespace Application.Services
 
 
         private string GenerateRefreshToken() =>
-               (DateTime.UtcNow.ToString() + this.configuration["JWT:Key"]).GetHash();
+              Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
 
         public Task<Token> CreateTokenFromRefresh(ClaimsPrincipal principal, RefreshToken savedRefreshToken)
         {
