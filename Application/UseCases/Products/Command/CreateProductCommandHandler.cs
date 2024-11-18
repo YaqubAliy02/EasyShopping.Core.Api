@@ -77,6 +77,8 @@ namespace Application.UseCases.Products.Command
             }
 
             product.UserId = Guid.Parse(userIdClaim);
+            product.CreatedAt = DateTime.UtcNow;
+            product.UpdatedAt = DateTime.UtcNow;
 
             product = await this.productRepository.AddAsync(product);
 
