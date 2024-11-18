@@ -22,6 +22,7 @@ namespace Infrastracture
             services.AddScoped<IBlobStorage, BlobStorage>();
             services.AddScoped<IProductThumbnailRepository, ProductThumbnailRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
             return services;
         }
     }

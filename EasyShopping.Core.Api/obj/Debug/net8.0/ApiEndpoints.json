@@ -74,6 +74,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.CategoryController",
+    "Method": "CreateCategoryAsync",
+    "RelativePath": "api/Category/CreateCategory",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "createCategoryCommand",
+        "Type": "Application.UseCases.Categories.Command.CreateCategoryCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EasyShopping.Core.Api.Controllers.ProductController",
     "Method": "CreateProductAsync",
     "RelativePath": "api/Product/CreateProduct",
