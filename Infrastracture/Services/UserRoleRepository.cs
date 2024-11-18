@@ -3,6 +3,7 @@ using Application.Abstraction;
 using Application.Repository;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 namespace Infrastracture.Services
 {
@@ -37,22 +38,24 @@ namespace Infrastracture.Services
             }
 
             return false;
-
         }
 
-        public async Task<IQueryable<UserRole>> GetAsync(Expression<Func<UserRole, bool>> expression)
+        public async Task<List<UserRole>> GetAsync(Expression<Func<UserRole, bool>> expression)
         {
-            return this.easyShoppingDbContext.Roles.Where(expression);
+            return await this.easyShoppingDbContext
+                .Roles.Where(expression).ToListAsync();
         }
 
         public async Task<UserRole> GetByIdAsync(Guid id)
         {
-            return await this.easyShoppingDbContext.Roles.Where(x => x.RoleId == id).SingleOrDefaultAsync();
+            return await this.easyShoppingDbContext
+                .Roles.Where(x => x.RoleId == id).SingleOrDefaultAsync();
         }
 
         public async Task<UserRole> GetRoleByNameAsync(string roleName)
         {
-            return await this.easyShoppingDbContext.Roles.Where(x => x.Role == roleName).FirstOrDefaultAsync();
+            return await this.easyShoppingDbContext
+                .Roles.Where(x => x.Role == roleName).FirstOrDefaultAsync();
         }
 
         public async Task<UserRole> UpdateAsync(UserRole updatedRole)

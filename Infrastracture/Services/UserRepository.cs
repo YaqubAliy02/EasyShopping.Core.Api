@@ -44,15 +44,15 @@ namespace Infrastracture.Services
             return false;
         }
 
-        public async Task<IQueryable<User>> GetAsync(Expression<Func<User, bool>> expression)
+        public async Task<List<User>> GetAsync(Expression<Func<User, bool>> expression)
         {
-            return this.easyShoppingDbContext.Users.Where(expression)
+            return await this.easyShoppingDbContext.Users.Where(expression)
                 .Include(x => x.Products)
                 .Include(x => x.Comments)
                 .Include(x => x.ShoppingCart)
                 .Include(x => x.SubComments)
                 .Include(x => x.UserRoles)
-                .Include(x => x.Orders);
+                .Include(x => x.Orders).ToListAsync();
         }
 
         public Task<User> GetByIdAsync(Guid id)

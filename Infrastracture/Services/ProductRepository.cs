@@ -46,15 +46,15 @@ namespace Infrastracture.Services
                 .ToListAsync();
         }
 
-        public async Task<IQueryable<Product>> GetAsync(Expression<Func<Product, bool>> expression)
+        public async Task<List<Product>> GetAsync(Expression<Func<Product, bool>> expression)
         {
-            return this.easyShoppingDbContext.Products
+            return await this.easyShoppingDbContext.Products
                  .Where(expression)
                  .Include(p => p.Category)
                  .Include(p => p.Comments)
                  .Include(p => p.ShoppingCart)
                  .Include(p => p.OrderItems)
-                 .Include(p => p.User);
+                 .Include(p => p.User).ToListAsync();
         }
 
         public async Task<Product> GetByIdAsync(Guid id)
