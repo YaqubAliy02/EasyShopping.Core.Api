@@ -28,25 +28,26 @@ namespace Infrastracture.Services
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-           var category = await this.easyShoppingDbContext.Categories.FindAsync(id);
+            var category = await this.easyShoppingDbContext.Categories.FindAsync(id);
 
-            if(category is null)
+            if (category is null)
             {
                 this.easyShoppingDbContext.Categories.Remove(category);
             }
 
             int result = await this.easyShoppingDbContext.SaveChangesAsync();
 
-            if(result > 0) return true;
+            if (result > 0) return true;
 
             return false;
         }
 
-        public async Task<IQueryable<Category>> GetAsync(Expression<Func<Category, bool>> expression)
+        public async Task<List<Category>> GetAsync(Expression<Func<Category, bool>> expression)
         {
-            return this.easyShoppingDbContext.Categories
+            return await this.easyShoppingDbContext.Categories
                 .Where(expression)
-                .Include(category => category.Products);
+                .Include(category => category.Products)
+                .ToListAsync();
         }
 
         public async Task<Category> GetByIdAsync(Guid id)
@@ -61,15 +62,15 @@ namespace Infrastracture.Services
         {
             var existingCategory = await GetByIdAsync(category.Id);
 
-            if(existingCategory is not null)
+            if (existingCategory is not null)
             {
                 existingCategory.Name = category.Name;
-               
-                foreach(var product in existingCategory.Products)
+
+                foreach (var product in existingCategory.Products)
                 {
                     var existingProducts = this.easyShoppingDbContext.Products.FindAsync(product.Id);
 
-                    if(existingCategory is not null)
+                    if (existingCategory is not null)
                     {
                         existingCategory.Products.Add(product);
                     }

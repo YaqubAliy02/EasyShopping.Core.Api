@@ -1,5 +1,5 @@
 ﻿using Application.UseCases.Products.Command;
-using Domain.Models;
+using Application.UseCases.Products.Query;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +24,19 @@ namespace EasyShopping.Core.Api.Controllers
             var result = await this.mediator.Send(createProductCommand);
 
             return result.StatusCode == 200 ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpGet("[action]")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetUserProducts()
+        {
+          return await this.mediator.Send(new GetAllProductsQuery());
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetProductByIdAsync([FromQuery] GetProductByIdQuery getProductByIdQuery)
+        {
+            return await this.mediator.Send(getProductByIdQuery);
         }
     }
 }

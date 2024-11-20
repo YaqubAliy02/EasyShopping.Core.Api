@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Application;
 using Infrastracture;
 using Microsoft.OpenApi.Models;
@@ -16,6 +17,12 @@ namespace EasyShopping.Core.Api
             builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddApplicationServices();
             builder.Services.AddHttpContextAccessor();
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+                    options.JsonSerializerOptions.MaxDepth = 16;
+                });
 
             builder.Services.AddSwaggerGen(options =>
             {
@@ -44,6 +51,7 @@ namespace EasyShopping.Core.Api
                     }
                 });
             });
+
 
             var app = builder.Build();
 
