@@ -5,7 +5,7 @@ namespace Application.DTOs.Users
 {
     public class UserRegisterDto
     {
-        public User User { get; set; }
+        public UserGetDto User { get; set; }
         public Token UserToken { get; set; }
     }
 }

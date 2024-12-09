@@ -10,7 +10,6 @@ namespace Application.DTOs.Users
         public string Email { get; set; }
         [PasswordPropertyText]
         public string Password { get; set; }
-        public Guid[] RolesId { get; set; }
     }
 }
 

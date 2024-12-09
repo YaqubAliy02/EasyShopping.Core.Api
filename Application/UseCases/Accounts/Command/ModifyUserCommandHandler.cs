@@ -32,6 +32,7 @@ namespace Application.UseCases.Accounts.Command
         public async Task<IActionResult> Handle(ModifyUserCommand request, CancellationToken cancellationToken)
         {
             var user = this.mapper.Map<User>(request);
+            user.UpdatedAt = DateTime.UtcNow;
             user = await this.userRepository.UpdateAsync(user);
 
             if (user is null)

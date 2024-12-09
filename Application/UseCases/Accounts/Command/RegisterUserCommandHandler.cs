@@ -85,12 +85,14 @@ namespace Application.UseCases.Accounts.Command
                 }
             }
             user.UserRoles = roles;
+            user.CreatedAt = DateTime.UtcNow;
+            var userGetDto = this.mapper.Map<UserGetDto>(user);
 
             if (request is not null)
             {
                 UserRegisterDto userRegisterDto = new UserRegisterDto()
                 {
-                    User = user,
+                    User = userGetDto,
                     UserToken = await tokenService.CreateTokenAsync(user)
                 };
             }

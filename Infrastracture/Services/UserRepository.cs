@@ -49,43 +49,29 @@ namespace Infrastracture.Services
         {
             return await this.easyShoppingDbContext.Users.Where(expression)
                 .Include(x => x.Products)
-                .Include(x => x.Comments)
-                .Include(x => x.ShoppingCart)
                 .Include(x => x.UserRoles)
                 .Include(x => x.Orders).ToListAsync();
         }
 
-        public async Task<UserGetAllDto> GetByIdAsync(Guid id)
+        public async Task<User> GetByIdAsync(Guid id)
         {
             return await this.easyShoppingDbContext.Users
-                .Where(x => x.Id == id)
-                .Select(user => new UserGetAllDto
-                {
-                    Id = user.Id,
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    Password = user.Password,
-                    ProductsId = user.Products.Select(p => p.Id).ToList()
-                    
-                })
-                .FirstOrDefaultAsync();
+                .Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
 
-        public async Task<User> UpdateAsync(UserGetAllDto userDto)
+        public async Task<User> UpdateAsync(User user)
         {
-            var existingUser = await this.easyShoppingDbContext.Users
-                .Include(u => u.UserRoles)
-                .FirstOrDefaultAsync(u => u.Id == userDto.Id);
+           var existingUser = await GetByIdAsync(user.Id);
 
             if (existingUser is not null)
             {
-                existingUser.UserName = userDto.UserName;
-                existingUser.Email = userDto.Email;
+                existingUser.UserName = user.UserName;
+                existingUser.Email = user.Email;
 
                 existingUser.UserRoles.Clear();
 
-                foreach (var roleDto in userDto.RolesId)
+                foreach (var roleDto in user.UserRoles)
                 {
                     var role = await this.easyShoppingDbContext.Roles.FindAsync(roleDto);
                     if (role is not null)
@@ -101,11 +87,6 @@ namespace Infrastracture.Services
             return null; 
         }
 
-        public Task<User> UpdateAsync(User entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task UpdatePasswordAsync(User user)
         {
             var existingUser = await GetByIdAsync(user.Id);
@@ -115,11 +96,6 @@ namespace Infrastracture.Services
                 existingUser.Password = user.Password;
                 await this.easyShoppingDbContext.SaveChangesAsync();
             }
-        }
-
-        Task<User> IRepository<User>.GetByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
         }
     }
 }
