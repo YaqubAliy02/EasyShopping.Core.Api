@@ -17,12 +17,6 @@ namespace EasyShopping.Core.Api
             builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddApplicationServices();
             builder.Services.AddHttpContextAccessor();
-            builder.Services.AddControllers()
-                .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-                    options.JsonSerializerOptions.MaxDepth = 16;
-                });
 
             builder.Services.AddSwaggerGen(options =>
             {

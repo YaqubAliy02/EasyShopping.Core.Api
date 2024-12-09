@@ -13,6 +13,15 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+# Ignore build and obj folders
+bin/
+obj/
+
+# Ignore executables and libraries
+*.dll
+*.exe
+*.pdb
+
 # Mono auto generated files
 mono_crash.*
 
