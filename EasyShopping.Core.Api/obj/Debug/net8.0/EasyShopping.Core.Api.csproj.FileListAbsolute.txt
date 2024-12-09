@@ -138,3 +138,7 @@ C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\bin\Debug\net8.0\EasyShopping.Core.Api.staticwebassets.endpoints.json
+C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\obj\Debug\net8.0\staticwebassets\msbuild.EasyShopping.Core.Api.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

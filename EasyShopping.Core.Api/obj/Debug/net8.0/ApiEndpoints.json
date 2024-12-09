@@ -132,6 +132,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.ProductController",
+    "Method": "UpdateProductByIdAsync",
+    "RelativePath": "api/Product/UpdateProductById",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "updateProductCommand",
+        "Type": "Application.UseCases.Products.Command.UpdateProductCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EasyShopping.Core.Api.Controllers.ProductThumbnailController",
     "Method": "UploadPhoto",
     "RelativePath": "api/ProductThumbnail/UploadPhoto",

@@ -33,10 +33,8 @@ namespace Application.UseCases.Users.Command
             CancellationToken cancellationToken)
         {
             var user = this.mapper.Map<User>(request);
-            user = await this.userRepository.UpdateAsync(user);
-
             if (user is null) return new BadRequestObjectResult(request);
-
+            user = await this.userRepository.UpdateAsync(user);
             var userGetDto = this.mapper.Map<UserGetDto>(user);
 
             return new OkObjectResult(userGetDto);

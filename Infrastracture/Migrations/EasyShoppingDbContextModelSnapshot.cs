@@ -75,14 +75,14 @@ namespace Infrastracture.Migrations
                     b.Property<DateTimeOffset>("OrderDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("OrderStatus")
-                        .HasColumnType("text");
+                    b.Property<int>("OrderStatus")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("PaymentId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("PaymentStatus")
                         .HasColumnType("integer");
-
-                    b.Property<bool>("ReceivedStatus")
-                        .HasColumnType("boolean");
 
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("numeric");
@@ -91,6 +91,9 @@ namespace Infrastracture.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PaymentId")
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -115,9 +118,6 @@ namespace Infrastracture.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("SubTotal")
-                        .HasColumnType("numeric");
-
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
@@ -133,9 +133,6 @@ namespace Infrastracture.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTimeOffset>("PaymentDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -146,9 +143,6 @@ namespace Infrastracture.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderId")
-                        .IsUnique();
 
                     b.ToTable("Payments");
                 });
@@ -229,6 +223,9 @@ namespace Infrastracture.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
@@ -237,7 +234,10 @@ namespace Infrastracture.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("ShoppingCarts");
                 });
@@ -254,14 +254,9 @@ namespace Infrastracture.Migrations
                     b.Property<string>("Text")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CommentId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("SubComments");
                 });
@@ -272,11 +267,17 @@ namespace Infrastracture.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
                         .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UserName")
                         .HasColumnType("text");
@@ -301,21 +302,6 @@ namespace Infrastracture.Migrations
                     b.HasKey("RoleId");
 
                     b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("ProductShoppingCart", b =>
-                {
-                    b.Property<Guid>("ProductsId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ShoppingCartId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("ProductsId", "ShoppingCartId");
-
-                    b.HasIndex("ShoppingCartId");
-
-                    b.ToTable("ProductShoppingCart");
                 });
 
             modelBuilder.Entity("UserUserRole", b =>
@@ -354,11 +340,19 @@ namespace Infrastracture.Migrations
 
             modelBuilder.Entity("Domain.Models.Order", b =>
                 {
+                    b.HasOne("Domain.Models.Payment", "Payment")
+                        .WithOne("Order")
+                        .HasForeignKey("Domain.Models.Order", "PaymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Payment");
 
                     b.Navigation("User");
                 });
@@ -382,17 +376,6 @@ namespace Infrastracture.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Domain.Models.Payment", b =>
-                {
-                    b.HasOne("Domain.Models.Order", "Order")
-                        .WithOne("Payment")
-                        .HasForeignKey("Domain.Models.Payment", "OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("Domain.Models.Product", b =>
                 {
                     b.HasOne("Domain.Models.Category", "Category")
@@ -401,58 +384,39 @@ namespace Infrastracture.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.User", "User")
+                    b.HasOne("Domain.Models.User", null)
                         .WithMany("Products")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Models.ShoppingCart", b =>
                 {
-                    b.HasOne("Domain.Models.User", "User")
+                    b.HasOne("Domain.Models.Product", "Products")
                         .WithMany("ShoppingCart")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Domain.Models.User", "User")
+                        .WithOne("ShoppingCart")
+                        .HasForeignKey("Domain.Models.ShoppingCart", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Products");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Models.SubComment", b =>
                 {
-                    b.HasOne("Domain.Models.Comment", "Comment")
+                    b.HasOne("Domain.Models.Comment", null)
                         .WithMany("SubComments")
                         .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.User", "User")
-                        .WithMany("SubComments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Comment");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ProductShoppingCart", b =>
-                {
-                    b.HasOne("Domain.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.ShoppingCart", null)
-                        .WithMany()
-                        .HasForeignKey("ShoppingCartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -485,8 +449,11 @@ namespace Infrastracture.Migrations
             modelBuilder.Entity("Domain.Models.Order", b =>
                 {
                     b.Navigation("OrderItems");
+                });
 
-                    b.Navigation("Payment");
+            modelBuilder.Entity("Domain.Models.Payment", b =>
+                {
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Domain.Models.Product", b =>
@@ -494,6 +461,8 @@ namespace Infrastracture.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("OrderItems");
+
+                    b.Navigation("ShoppingCart");
                 });
 
             modelBuilder.Entity("Domain.Models.User", b =>
@@ -505,8 +474,6 @@ namespace Infrastracture.Migrations
                     b.Navigation("Products");
 
                     b.Navigation("ShoppingCart");
-
-                    b.Navigation("SubComments");
                 });
 #pragma warning restore 612, 618
         }

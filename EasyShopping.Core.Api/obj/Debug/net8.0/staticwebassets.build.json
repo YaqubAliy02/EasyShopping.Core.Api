@@ -1,11 +1,12 @@
 {
   "Version": 1,
-  "Hash": "Nj+UTuSK04nBieh+LLM8WsGJBEkUFa6gTaLyN/NZCb8=",
+  "Hash": "RVFSvaR9B6a3YXGtkdAGkMfFqj9cyADaFW9dfnVDIWg=",
   "Source": "EasyShopping.Core.Api",
   "BasePath": "_content/EasyShopping.Core.Api",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }

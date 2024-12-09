@@ -10,5 +10,3 @@ namespace Domain.Models
         public virtual ICollection<User> Users { get; set; }
     }
 }
-
-
