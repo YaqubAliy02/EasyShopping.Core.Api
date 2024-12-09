@@ -371,3 +371,7 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /EasyShopping.Core.Api/appsettings.json
+/EasyShopping.Core.Api/obj/Debug/net8.0/EasyShopping.Core.Api.AssemblyInfo.cs
+/EasyShopping.Core.Api/obj/Debug/net8.0/EasyShopping.Core.Api.AssemblyInfoInputs.cache
+/EasyShopping.Core.Api/obj/Debug/net8.0/EasyShopping.Core.Api.csproj.AssemblyReference.cache
+/EasyShopping.Core.Api/obj/Debug/net8.0/EasyShopping.Core.Api.sourcelink.json
