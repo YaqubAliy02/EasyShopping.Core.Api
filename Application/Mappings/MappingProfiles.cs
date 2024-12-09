@@ -64,8 +64,9 @@ namespace Application.Mappings
         {
             CreateMap<CreateProductCommand, Product>();
             CreateMap<Product, CreateProductCommandHandlerResult>();
-            CreateMap<UpdateProductCommand, Product>();
             CreateMap<Product, ProductGetDto>();
+            CreateMap<UpdateProductCommand, ProductGetDto>();
+            CreateMap<UpdateProductCommand, Product>();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Application.DTOs.Products;
 using Application.Repository;
 using AutoMapper;
 using Domain.Models;
@@ -20,52 +21,76 @@ namespace Application.UseCases.Products.Command
         public Guid CategoryId { get; set; }
         public string Thumbnail { get; set; }
     }
+
     public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, IActionResult>
     {
         private readonly IMapper mapper;
-        private IProductRepository productRepository;
+        private readonly IProductRepository productRepository;
         private readonly IValidator<Product> validator;
         private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly ICategoryRepository categoryRepository;
+        private readonly IUserRepository userRepository;
+
         public UpdateProductCommandHandler(
             IMapper mapper,
             IProductRepository productRepository,
             IValidator<Product> validator,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            ICategoryRepository categoryRepository,
+            IUserRepository userRepository)
         {
             this.mapper = mapper;
             this.productRepository = productRepository;
             this.validator = validator;
             this.httpContextAccessor = httpContextAccessor;
+            this.categoryRepository = categoryRepository;
+            this.userRepository = userRepository;
         }
 
         public async Task<IActionResult> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
-            var product = this.mapper.Map<Product>(request);
+            var userId = httpContextAccessor.HttpContext?.User
+                .FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            if(string.IsNullOrWhiteSpace(userId))
-            {
+            if (string.IsNullOrWhiteSpace(userId))
                 return new UnauthorizedObjectResult("User is not authenticated");
-            }
 
             var existingProduct = await productRepository.GetByIdAsync(request.Id);
+            if (existingProduct == null)
+                return new NotFoundObjectResult("Product not found");
 
-            if(existingProduct is null)
-            {
-                return new NotFoundObjectResult("Product is not found");
-            }
+            if (existingProduct.UserId.ToString() != userId)
+                return new ForbidResult("User is not authorized to update this product");
 
-            if(existingProduct.UserId.ToString() != userId)
-            {
-                return new ForbidResult("Your are not authorized to update this product");
-            }
+            var duplicateProduct = await productRepository.GetAsync(p => p.Name == request.Name && p.Id != request.Id);
+            if (duplicateProduct.Any())
+                return new BadRequestObjectResult("A product with the same name already exists");
 
-            var updatedProduct = this.mapper.Map(request, existingProduct);
+            if (request.SellingPrice < request.CostPrice)
+                return new BadRequestObjectResult("Selling price cannot be lower than cost price");
 
-            updatedProduct = await this.productRepository.UpdateAsync(updatedProduct);
+            if (request.StockQuantity < 0)
+                return new BadRequestObjectResult("Stock quantity cannot be negative");
 
-            return new OkObjectResult(updatedProduct);
+            var category = await categoryRepository.GetByIdAsync(request.CategoryId);
+            if (category == null)
+                return new BadRequestObjectResult("Invalid category");
+
+            var user = await userRepository.GetByIdAsync(Guid.Parse(userId));
+            if (user == null)
+                return new BadRequestObjectResult("Invalid user");
+
+            var product = mapper.Map(request, existingProduct);
+            product.UpdatedAt = DateTimeOffset.UtcNow;
+
+            var validationResult = validator.Validate(product);
+            if (!validationResult.IsValid)
+                return new BadRequestObjectResult(validationResult);
+
+            product = await productRepository.UpdateAsync(product);
+            var productGetDto = mapper.Map<ProductGetDto>(product);
+
+            return new OkObjectResult(productGetDto);
         }
     }
 }

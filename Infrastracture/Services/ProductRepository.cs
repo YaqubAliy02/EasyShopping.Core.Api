@@ -71,6 +71,7 @@ namespace Infrastracture.Services
         public async Task<Product> UpdateAsync(Product updateProduct)
         {
             this.easyShoppingDbContext.Products.Update(updateProduct);
+
             int result = await this.easyShoppingDbContext.SaveChangesAsync();
 
             if (result > 0) return updateProduct;
