@@ -1,4 +1,5 @@
-﻿using Application.Repository;
+﻿using Application.DTOs.Products;
+using Application.Repository;
 using AutoMapper;
 using Domain.Models;
 using MediatR;
@@ -27,12 +28,14 @@ namespace Application.UseCases.Products.Query
         {
             Product product = await this.productRepository.GetByIdAsync(request.Id);
 
-            if(product is null)
+            var productDto = this.mapper.Map<ProductGetDto>(product);  
+
+            if (productDto is null)
             {
                 return new NotFoundObjectResult($"Product id: {request.Id} is not found");
             }
 
-            return new OkObjectResult(product);
+            return new OkObjectResult(productDto);
         }
     }
 }
