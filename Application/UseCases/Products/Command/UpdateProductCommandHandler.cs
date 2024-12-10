@@ -56,7 +56,7 @@ namespace Application.UseCases.Products.Command
                 return new UnauthorizedObjectResult("User is not authenticated");
 
             var existingProduct = await productRepository.GetByIdAsync(request.Id);
-            if (existingProduct == null)
+            if (existingProduct is null)
                 return new NotFoundObjectResult("Product not found");
 
             if (existingProduct.UserId.ToString() != userId)
@@ -73,11 +73,11 @@ namespace Application.UseCases.Products.Command
                 return new BadRequestObjectResult("Stock quantity cannot be negative");
 
             var category = await categoryRepository.GetByIdAsync(request.CategoryId);
-            if (category == null)
+            if (category is null)
                 return new BadRequestObjectResult("Invalid category");
 
             var user = await userRepository.GetByIdAsync(Guid.Parse(userId));
-            if (user == null)
+            if (user is null)
                 return new BadRequestObjectResult("Invalid user");
 
             var product = mapper.Map(request, existingProduct);
