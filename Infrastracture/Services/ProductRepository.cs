@@ -39,22 +39,15 @@ namespace Infrastracture.Services
             return false;
         }
 
-        public async Task<List<Product>> GetAllProductsByIdAsync(IEnumerable<Guid> productId)
-        {
-            return await this.easyShoppingDbContext.Products
-                .Where(p => productId.Contains(p.Id))
-                .ToListAsync();
-        }
 
-        public async Task<List<Product>> GetAsync(Expression<Func<Product, bool>> expression)
+        public async Task<IQueryable<Product>> GetAsync(Expression<Func<Product, bool>> expression)
         {
-            return await this.easyShoppingDbContext.Products
+            return this.easyShoppingDbContext.Products
                  .Where(expression)
                  .Include(p => p.Category)
                  .Include(p => p.Comments)
                  .Include(p => p.ShoppingCart)
-                 .Include(p => p.OrderItems)
-                 .ToListAsync();
+                 .Include(p => p.OrderItems);
         }
 
         public async Task<Product> GetByIdAsync(Guid id)

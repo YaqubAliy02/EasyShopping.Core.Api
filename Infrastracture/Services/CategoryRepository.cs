@@ -42,12 +42,10 @@ namespace Infrastracture.Services
             return false;
         }
 
-        public async Task<List<Category>> GetAsync(Expression<Func<Category, bool>> expression)
+        public async Task<IQueryable<Category>> GetAsync(Expression<Func<Category, bool>> expression)
         {
-            return await this.easyShoppingDbContext.Categories
-                .Where(expression)
-                .Include(category => category.Products)
-                .ToListAsync();
+            return this.easyShoppingDbContext.Categories.Where(expression)
+                .Include(category => category.Products);
         }
 
         public async Task<Category> GetByIdAsync(Guid id)

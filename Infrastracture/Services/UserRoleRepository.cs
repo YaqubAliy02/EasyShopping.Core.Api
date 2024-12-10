@@ -3,7 +3,6 @@ using Application.Abstraction;
 using Application.Repository;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 
 namespace Infrastracture.Services
 {
@@ -40,10 +39,10 @@ namespace Infrastracture.Services
             return false;
         }
 
-        public async Task<List<UserRole>> GetAsync(Expression<Func<UserRole, bool>> expression)
+        public async Task<IQueryable<UserRole>> GetAsync(Expression<Func<UserRole, bool>> expression)
         {
-            return await this.easyShoppingDbContext
-                .Roles.Where(expression).ToListAsync();
+            return this.easyShoppingDbContext
+                .Roles.Where(expression);
         }
 
         public async Task<UserRole> GetByIdAsync(Guid id)

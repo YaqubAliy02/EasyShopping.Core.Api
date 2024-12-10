@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using Application.Abstraction;
-using Application.DTOs.Users;
 using Application.Extensions;
 using Application.Repository;
 using Domain.Models;
@@ -45,12 +44,12 @@ namespace Infrastracture.Services
             return false;
         }
 
-        public async Task<List<User>> GetAsync(Expression<Func<User, bool>> expression)
+        public async Task<IQueryable<User>> GetAsync(Expression<Func<User, bool>> expression)
         {
-            return await this.easyShoppingDbContext.Users.Where(expression)
+            return this.easyShoppingDbContext.Users.Where(expression)
                 .Include(x => x.Products)
                 .Include(x => x.UserRoles)
-                .Include(x => x.Orders).ToListAsync();
+                .Include(x => x.Orders);
         }
 
         public async Task<User> GetByIdAsync(Guid id)
