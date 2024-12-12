@@ -27,9 +27,16 @@ namespace EasyShopping.Core.Api.Controllers
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> GetAllCategories()
         {
             return await this.mediator.Send(new GetAllCategoriesQuery());
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetCategoryByIdAsync([FromQuery] GetCategoryByIdQuery getCategoryByIdQuery)
+        {
+            return await this.mediator.Send(new GetCategoryByIdQuery { Id = getCategoryByIdQuery.Id });
         }
     }
 }
