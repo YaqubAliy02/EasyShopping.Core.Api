@@ -91,6 +91,22 @@
   },
   {
     "ContainingType": "EasyShopping.Core.Api.Controllers.CategoryController",
+    "Method": "DeleteCategoryById",
+    "RelativePath": "api/Category/DeleteCategoryById",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.CategoryController",
     "Method": "GetAllCategories",
     "RelativePath": "api/Category/GetAllCategories",
     "HttpMethod": "GET",
@@ -117,7 +133,7 @@
   },
   {
     "ContainingType": "EasyShopping.Core.Api.Controllers.CategoryController",
-    "Method": "UpdateCategoryById",
+    "Method": "UpdateCategoryByIdAsync",
     "RelativePath": "api/Category/UpdateCategoryById",
     "HttpMethod": "PUT",
     "IsController": true,

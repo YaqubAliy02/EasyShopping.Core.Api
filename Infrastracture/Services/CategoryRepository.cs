@@ -30,7 +30,7 @@ namespace Infrastracture.Services
         {
             var category = await this.easyShoppingDbContext.Categories.FindAsync(id);
 
-            if (category is null)
+            if (category is not null)
             {
                 this.easyShoppingDbContext.Categories.Remove(category);
             }

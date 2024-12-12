@@ -40,10 +40,15 @@ namespace EasyShopping.Core.Api.Controllers
         }
 
         [HttpPut("[action]")]
-
         public async Task<IActionResult> UpdateCategoryByIdAsync([FromBody] UpdateCategoryCommand updateCategoryCommand)
         {
             return await this.mediator.Send(updateCategoryCommand);
+        }
+
+        [HttpDelete("[action]")]
+        public async Task<IActionResult> DeleteCategoryById([FromQuery] DeleteCategoryCommand deleteCategoryCommand)
+        {
+            return await this.mediator.Send(deleteCategoryCommand);
         }
     }
 }
