@@ -38,5 +38,12 @@ namespace EasyShopping.Core.Api.Controllers
         {
             return await this.mediator.Send(new GetCategoryByIdQuery { Id = getCategoryByIdQuery.Id });
         }
+
+        [HttpPut("[action]")]
+
+        public async Task<IActionResult> UpdateCategoryByIdAsync([FromBody] UpdateCategoryCommand updateCategoryCommand)
+        {
+            return await this.mediator.Send(updateCategoryCommand);
+        }
     }
 }

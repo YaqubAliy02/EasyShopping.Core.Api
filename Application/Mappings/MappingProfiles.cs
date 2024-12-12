@@ -25,6 +25,7 @@ namespace Application.Mappings
         {
             CreateMap<CreateCategoryCommand, Category>();
             CreateMap<Category, CreateCategoryCommandHandlerResult>();
+            CreateMap<UpdateCategoryCommand, Category>();
         }
 
         private void UserRoleMappingRules()

@@ -116,6 +116,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.CategoryController",
+    "Method": "UpdateCategoryById",
+    "RelativePath": "api/Category/UpdateCategoryById",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "updateCategoryCommand",
+        "Type": "Application.UseCases.Categories.Command.UpdateCategoryCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EasyShopping.Core.Api.Controllers.ProductController",
     "Method": "CreateProductAsync",
     "RelativePath": "api/Product/CreateProduct",
