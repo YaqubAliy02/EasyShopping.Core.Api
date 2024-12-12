@@ -34,18 +34,19 @@ namespace EasyShopping.Core.Api.Controllers
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> GetCategoryByIdAsync([FromQuery] GetCategoryByIdQuery getCategoryByIdQuery)
         {
             return await this.mediator.Send(new GetCategoryByIdQuery { Id = getCategoryByIdQuery.Id });
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPut("[action]")]
         public async Task<IActionResult> UpdateCategoryByIdAsync([FromBody] UpdateCategoryCommand updateCategoryCommand)
         {
             return await this.mediator.Send(updateCategoryCommand);
         }
-
         [HttpDelete("[action]")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCategoryById([FromQuery] DeleteCategoryCommand deleteCategoryCommand)
         {
             return await this.mediator.Send(deleteCategoryCommand);

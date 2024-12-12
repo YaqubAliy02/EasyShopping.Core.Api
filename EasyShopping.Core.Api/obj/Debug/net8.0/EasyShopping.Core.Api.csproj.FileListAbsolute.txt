@@ -122,6 +122,7 @@ C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\obj\Debug
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\obj\Debug\net8.0\EasyShopping.Core.Api.AssemblyInfoInputs.cache
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\obj\Debug\net8.0\EasyShopping.Core.Api.AssemblyInfo.cs
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\obj\Debug\net8.0\EasyShopping.Core.Api.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\obj\Debug\net8.0\EasyShopping.Core.Api.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\obj\Debug\net8.0\EasyShopping.Core.Api.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\obj\Debug\net8.0\EasyShopping.Core.Api.sourcelink.json
 C:\Users\user\source\repos\EasyShopping.Core.Api\EasyShopping.Core.Api\obj\Debug\net8.0\scopedcss\bundle\EasyShopping.Core.Api.styles.css
