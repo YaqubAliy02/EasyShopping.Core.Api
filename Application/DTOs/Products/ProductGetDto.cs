@@ -12,7 +12,6 @@ namespace Application.DTOs.Products
         public int StockQuantity { get; set; }
         public Guid CategoryId { get; set; }
         public string Thumbnail { get; set; }
-        public Guid[] CommentsId { get; set; }
+        public Guid[] CommentIds { get; set; }
     }
 }
-    

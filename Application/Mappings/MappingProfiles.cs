@@ -76,6 +76,9 @@ namespace Application.Mappings
             CreateMap<Product, ProductGetDto>();
             CreateMap<UpdateProductCommand, ProductGetDto>();
             CreateMap<UpdateProductCommand, Product>();
+            CreateMap<Product, ProductGetDto>()
+                .ForMember(destination => destination.CommentIds,
+                option => option.MapFrom(src => src.Comments.Select(c => c.Id)));
         }
     }
 }

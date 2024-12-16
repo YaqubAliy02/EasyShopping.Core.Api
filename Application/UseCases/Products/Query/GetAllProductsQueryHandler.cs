@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using Application.Abstraction;
 using Application.DTOs.Products;
+using Application.Repository;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -13,19 +14,19 @@ namespace Application.UseCases.Products.Query
 
     public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, IActionResult>
     {
-        private readonly IEasyShoppingDbContext easyShoppingDbContext;
         private readonly IMapper mapper;
         private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IProductRepository productRepository;
 
         public GetAllProductsQueryHandler(
-            IEasyShoppingDbContext easyShoppingDbContext,
             IHttpContextAccessor httpContextAccessor,
-            IMapper mapper)
+            IMapper mapper,
+            IProductRepository productRepository)
 
         {
-            this.easyShoppingDbContext = easyShoppingDbContext;
             this.httpContextAccessor = httpContextAccessor;
             this.mapper = mapper;
+            this.productRepository = productRepository;
         }
 
         public async Task<IActionResult> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
@@ -40,9 +41,8 @@ namespace Application.UseCases.Products.Query
 
             var userId = Guid.Parse(userIdClaim);
 
-            var products = await this.easyShoppingDbContext.Products
-                .Where(p => p.UserId == userId)
-                .ToListAsync(cancellationToken);
+            var products = await this.productRepository.GetAsync(x => x.UserId == userId);
+            var productList = await products.ToListAsync();
 
             var productsDto = this.mapper.Map<List<ProductGetDto>>(products);
 
