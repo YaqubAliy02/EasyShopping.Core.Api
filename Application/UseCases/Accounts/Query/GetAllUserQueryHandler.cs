@@ -27,7 +27,7 @@ namespace Application.UseCases.Accounts.Query
             var resultUser = this.mapper
                 .Map<IEnumerable<UserGetDto>>(users.AsEnumerable());
 
-            return new OkObjectResult(users);
+            return new OkObjectResult(resultUser);
         }
     }
 }

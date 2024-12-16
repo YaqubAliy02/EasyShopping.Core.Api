@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Domain.Models;
 
 namespace Application.DTOs.Users
 {
@@ -10,6 +11,8 @@ namespace Application.DTOs.Users
         public string Email { get; set; }
         [PasswordPropertyText]
         public string Password { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
+        public Guid[] ProductsId { get; set; }
     }
 }
 

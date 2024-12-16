@@ -8,6 +8,6 @@
         public string Email { get; set; }
         public string Password { get; set; }
         public Guid[] RolesId { get; set; }
-        public List<Guid> ProductsId { get; set; }
+       
     }
 }
