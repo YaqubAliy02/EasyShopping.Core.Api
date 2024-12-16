@@ -55,7 +55,9 @@ namespace Infrastracture.Services
         public async Task<User> GetByIdAsync(Guid id)
         {
             return await this.easyShoppingDbContext.Users
-                .Where(x => x.Id == id).FirstOrDefaultAsync();
+                .Where(x => x.Id == id)
+                .Include(x => x.UserRoles)
+                .Include(x => x.Products).FirstOrDefaultAsync();
         }
 
 

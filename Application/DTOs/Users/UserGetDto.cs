@@ -6,6 +6,7 @@ namespace Application.DTOs.Users
 {
     public class UserGetDto
     {
+        public Guid Id { get; set; }
         public string UserName { get; set; }
         [EmailAddress]
         public string Email { get; set; }

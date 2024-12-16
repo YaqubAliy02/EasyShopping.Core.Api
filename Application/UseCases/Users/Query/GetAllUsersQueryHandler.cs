@@ -11,6 +11,7 @@ namespace Application.UseCases.Users.Query
     {
         private readonly IUserRepository userRepository;
         private readonly IMapper mapper;
+
         public GetAllUsersQueryHandler(
             IUserRepository userRepository,
             IMapper mapper)
@@ -26,7 +27,7 @@ namespace Application.UseCases.Users.Query
             var resultUser = this.mapper
                 .Map<IEnumerable<UserGetDto>>(users.AsEnumerable());
 
-            return new OkObjectResult(users);
+            return new OkObjectResult(resultUser);
         }
     }
 }
