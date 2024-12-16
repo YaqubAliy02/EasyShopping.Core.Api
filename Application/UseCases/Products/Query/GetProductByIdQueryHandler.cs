@@ -1,8 +1,10 @@
-﻿using Application.DTOs.Products;
+﻿using System.Security.Claims;
+using Application.DTOs.Products;
 using Application.Repository;
 using AutoMapper;
 using Domain.Models;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Application.UseCases.Products.Query
@@ -15,25 +17,35 @@ namespace Application.UseCases.Products.Query
     {
         private readonly IProductRepository productRepository;
         private readonly IMapper mapper;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
         public GetProductByIdQueryHandler(
             IProductRepository productRepository,
-            IMapper mapper)
+            IMapper mapper,
+            IHttpContextAccessor httpContextAccessor)
         {
             this.productRepository = productRepository;
             this.mapper = mapper;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IActionResult> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
+            if (!this.httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                return new UnauthorizedResult();
+            }
+            var userIdClaim = this.httpContextAccessor
+                .HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var userId = Guid.Parse(userIdClaim);
+
             Product product = await this.productRepository.GetByIdAsync(request.Id);
 
-            var productDto = this.mapper.Map<ProductGetDto>(product);  
-
-            if (productDto is null)
-            {
+            if (product is null || product.UserId != userId)
                 return new NotFoundObjectResult($"Product id: {request.Id} is not found");
-            }
+
+            var productDto = this.mapper.Map<ProductGetDto>(product);
 
             return new OkObjectResult(productDto);
         }
