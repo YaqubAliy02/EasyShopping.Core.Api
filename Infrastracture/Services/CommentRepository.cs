@@ -28,7 +28,6 @@ namespace Infrastracture.Services
         public async Task<bool> DeleteAsync(Guid id)
         {
             var comment = await this.easyShoppingDbContext.Comments.FindAsync(id);
-
             if (comment is not null)
                 this.easyShoppingDbContext.Comments.Remove(comment);
 

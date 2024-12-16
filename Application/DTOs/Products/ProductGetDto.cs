@@ -1,4 +1,6 @@
-﻿namespace Application.DTOs.Products
+﻿using Domain.Models;
+
+namespace Application.DTOs.Products
 {
     public class ProductGetDto
     {
@@ -10,5 +12,7 @@
         public int StockQuantity { get; set; }
         public Guid CategoryId { get; set; }
         public string Thumbnail { get; set; }
+        public Guid[] CommentsId { get; set; }
     }
 }
+    

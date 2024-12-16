@@ -42,7 +42,7 @@ namespace Infrastracture.Services
         public async Task<IQueryable<UserRole>> GetAsync(Expression<Func<UserRole, bool>> expression)
         {
             return this.easyShoppingDbContext
-                .Roles.Where(expression);
+                .Roles.Where(expression).AsQueryable();
         }
 
         public async Task<UserRole> GetByIdAsync(Guid id)

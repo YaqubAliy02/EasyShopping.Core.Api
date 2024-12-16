@@ -27,7 +27,7 @@ namespace EasyShopping.Core.Api.Controllers
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUserProducts()
         {
           return await this.mediator.Send(new GetAllProductsQuery());

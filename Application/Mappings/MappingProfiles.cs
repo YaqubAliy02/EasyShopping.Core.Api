@@ -3,6 +3,7 @@ using Application.DTOs.Users;
 using Application.Models;
 using Application.UseCases.Accounts.Command;
 using Application.UseCases.Categories.Command;
+using Application.UseCases.Comments.Command;
 using Application.UseCases.Products.Command;
 using Application.UseCases.Roles.Command;
 using Application.UseCases.Users.Command;
@@ -19,6 +20,13 @@ namespace Application.Mappings
             UserRoleMappingRules();
             ProductMappingRules();
             CategoryMappingRules();
+            CommentMappingRules();
+        }
+
+        private void CommentMappingRules()
+        {
+            CreateMap<CreateCommentCommand, Comment>();
+            CreateMap<Comment, CreateCommentCommandHandlerResult>();
         }
 
         private void CategoryMappingRules()

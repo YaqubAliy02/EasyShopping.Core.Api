@@ -30,6 +30,11 @@ namespace Application.UseCases.Products.Query
 
         public async Task<IActionResult> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
+            if (!this.httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                return new UnauthorizedResult();
+            }
+
             var userIdClaim = this.httpContextAccessor
                  .HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
@@ -42,10 +47,6 @@ namespace Application.UseCases.Products.Query
             var productsDto = this.mapper.Map<List<ProductGetDto>>(products);
 
             return new OkObjectResult(productsDto);
-            
         }
     }
 }
-// var productsDto = this.mapper.Map<List<ProductGetDto>>(products); I have to return this productDto
-// it is not working and error message: Object reference not set to an instance of an object. actually products is not null
-// that's why mapper just map Product to ProductGetDto but it is not.
