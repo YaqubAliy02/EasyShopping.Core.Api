@@ -43,7 +43,9 @@ namespace Infrastracture.Services
             return this.easyShoppingDbContext.Comments
                  .Where(expression)
                  .Include(p => p.Product)
-                 .Include(u => u.User).AsQueryable();
+                 .Include(u => u.User)
+                 .AsSplitQuery()
+                 .AsQueryable();
         }
 
         public Task<Comment> GetByIdAsync(Guid id)
@@ -51,6 +53,7 @@ namespace Infrastracture.Services
             return this.easyShoppingDbContext.Comments
                 .Include(p => p.Product)
                 .Include(u => u.User)
+                .AsSplitQuery()
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 

@@ -47,7 +47,8 @@ namespace Infrastracture.Services
                  .Include(p => p.Category)
                  .Include(p => p.Comments)
                  .Include(p => p.ShoppingCart)
-                 .Include(p => p.OrderItems);
+                 .Include(p => p.OrderItems)
+                 .AsSplitQuery();
         }
 
         public async Task<Product> GetByIdAsync(Guid id)
@@ -58,6 +59,7 @@ namespace Infrastracture.Services
            .Include(p => p.Comments)
            .Include(p => p.ShoppingCart)
            .Include(p => p.OrderItems)
+           .AsSplitQuery()
            .FirstOrDefaultAsync();
         }
 

@@ -49,7 +49,8 @@ namespace Infrastracture.Services
             return this.easyShoppingDbContext.Users.Where(expression)
                 .Include(x => x.Products)
                 .Include(x => x.UserRoles)
-                .Include(x => x.Orders);
+                .Include(x => x.Orders)
+                .AsSplitQuery();
         }
 
         public async Task<User> GetByIdAsync(Guid id)
@@ -57,7 +58,10 @@ namespace Infrastracture.Services
             return await this.easyShoppingDbContext.Users
                 .Where(x => x.Id == id)
                 .Include(x => x.UserRoles)
-                .Include(x => x.Products).FirstOrDefaultAsync();
+                .Include(x => x.Products)
+                .AsSplitQuery()
+                .FirstOrDefaultAsync();
+
         }
 
 
