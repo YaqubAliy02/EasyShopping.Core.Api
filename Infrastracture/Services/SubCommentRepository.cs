@@ -20,7 +20,7 @@ namespace Infrastracture.Services
             await this.easyShoppingDbContext.SubComments.AddAsync(subComment);
             int result = await this.easyShoppingDbContext.SaveChangesAsync();
 
-            if(result > 0) return subComment;
+            if (result > 0) return subComment;
 
             return null;
         }
@@ -29,12 +29,12 @@ namespace Infrastracture.Services
         {
             var subComment = this.easyShoppingDbContext.SubComments.Find(id);
 
-            if(subComment is not null)
+            if (subComment is not null)
                 this.easyShoppingDbContext.SubComments.Remove(subComment);
 
             int result = await this.easyShoppingDbContext.SaveChangesAsync();
 
-            if(result > 0) return true;
+            if (result > 0) return true;
 
             return false;
 
@@ -42,12 +42,15 @@ namespace Infrastracture.Services
 
         public async Task<IQueryable<SubComment>> GetAsync(Expression<Func<SubComment, bool>> expression)
         {
-           return this.easyShoppingDbContext.SubComments.Where(expression).AsQueryable();
+            return this.easyShoppingDbContext.SubComments
+                 .Where(expression)
+                 .AsQueryable();
         }
 
         public Task<SubComment> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return this.easyShoppingDbContext.SubComments
+                .FirstOrDefaultAsync(sc => sc.Id == id);
         }
 
         public Task<SubComment> UpdateAsync(SubComment entity)
