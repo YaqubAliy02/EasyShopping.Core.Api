@@ -165,12 +165,44 @@
   },
   {
     "ContainingType": "EasyShopping.Core.Api.Controllers.CommentController",
+    "Method": "DeleteCommentByIdAsync",
+    "RelativePath": "api/Comment/DeleteCommentById",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.CommentController",
     "Method": "GetAllCommentsAsync",
     "RelativePath": "api/Comment/GetAllComments",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.CommentController",
+    "Method": "GetCommentByIdAsync",
+    "RelativePath": "api/Comment/GetCommentById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
