@@ -24,9 +24,19 @@ namespace Infrastracture.Services
             return null;
         }
 
-        public Task<bool> DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var subComment = this.easyShoppingDbContext.SubComments.Find(id);
+
+            if(subComment is not null)
+                this.easyShoppingDbContext.SubComments.Remove(subComment);
+
+            int result = await this.easyShoppingDbContext.SaveChangesAsync();
+
+            if(result > 0) return true;
+
+            return false;
+
         }
 
         public Task<IQueryable<SubComment>> GetAsync(Expression<Func<SubComment, bool>> expression)
