@@ -1,4 +1,5 @@
 ﻿using Application.UseCases.SubComments.Command;
+using Application.UseCases.SubComments.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,12 @@ namespace EasyShopping.Core.Api.Controllers
         {
             var result = await this.mediator.Send(createSubCommentCommand);
             return result.StatusCode is 200 ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllSubCommentAsync()
+        {
+            return await this.mediator.Send(new GetAllSubCommentQuery());
         }
     }
 }
