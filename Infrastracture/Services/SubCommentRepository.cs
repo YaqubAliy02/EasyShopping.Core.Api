@@ -2,6 +2,7 @@
 using Application.Abstraction;
 using Application.Repository;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastracture.Services
 {
@@ -39,9 +40,9 @@ namespace Infrastracture.Services
 
         }
 
-        public Task<IQueryable<SubComment>> GetAsync(Expression<Func<SubComment, bool>> expression)
+        public async Task<IQueryable<SubComment>> GetAsync(Expression<Func<SubComment, bool>> expression)
         {
-            throw new NotImplementedException();
+           return this.easyShoppingDbContext.SubComments.Where(expression).AsQueryable();
         }
 
         public Task<SubComment> GetByIdAsync(Guid id)
