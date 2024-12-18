@@ -403,6 +403,22 @@
   },
   {
     "ContainingType": "EasyShopping.Core.Api.Controllers.SubCommentController",
+    "Method": "DeleteSubCommentByIdAsync",
+    "RelativePath": "api/SubComment/DeleteSubCommentById",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.SubCommentController",
     "Method": "GetAllSubCommentAsync",
     "RelativePath": "api/SubComment/GetAllSubComment",
     "HttpMethod": "GET",

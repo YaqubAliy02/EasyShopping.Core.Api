@@ -39,5 +39,11 @@ namespace EasyShopping.Core.Api.Controllers
         {
             return await this.mediator.Send(updateSubCommentCommand);
         }
+
+        [HttpDelete("[action]")]
+        public async Task<IActionResult> DeleteSubCommentByIdAsync([FromQuery] DeleteSubCommentCommand deleteSubCommentCommand)
+        {
+            return await this.mediator.Send(deleteSubCommentCommand);
+        }
     }
 }
