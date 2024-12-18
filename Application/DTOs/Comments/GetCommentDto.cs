@@ -6,7 +6,7 @@ namespace Application.DTOs.Comments
     {
         public Guid Id { get; set; }
         public string Text { get; set; }
-        public ICollection<SubComment> SubComments { get; set; } = new List<SubComment>();
+        public Guid[] SubCommentsId { get; set; }
         public DateTimeOffset CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

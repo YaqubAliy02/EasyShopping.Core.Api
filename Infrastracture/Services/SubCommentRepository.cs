@@ -55,11 +55,11 @@ namespace Infrastracture.Services
 
         public async Task<SubComment> UpdateAsync(SubComment subComment)
         {
-            var existingSubComment = this.GetByIdAsync(subComment.Id);
+            var existingSubComment = await this.GetByIdAsync(subComment.Id);
 
             if (existingSubComment is not null)
             {
-                this.easyShoppingDbContext.SubComments.Update(subComment);
+                existingSubComment.Text = subComment.Text;
                 int result = await this.easyShoppingDbContext.SaveChangesAsync();
 
                 if (result > 0) return subComment;

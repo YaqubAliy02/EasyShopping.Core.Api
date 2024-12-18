@@ -36,8 +36,11 @@ namespace Application.Mappings
         {
             CreateMap<CreateCommentCommand, Comment>();
             CreateMap<Comment, CreateCommentCommandHandlerResult>();
-            CreateMap<Comment, GetCommentDto>();
             CreateMap<UpdateCommentByIdCommand, Comment>();
+            CreateMap<Comment, GetCommentDto>()
+                .ForMember(destination => destination.SubCommentsId,
+                options => options.MapFrom(src => src.SubComments.Select(s => s.Id)));
+
         }
 
         private void CategoryMappingRules()

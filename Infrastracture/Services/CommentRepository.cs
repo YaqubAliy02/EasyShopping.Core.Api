@@ -42,8 +42,7 @@ namespace Infrastracture.Services
         {
             return this.easyShoppingDbContext.Comments
                  .Where(expression)
-                 .Include(p => p.Product)
-                 .Include(u => u.User)
+                 .Include(s => s.SubComments)
                  .AsSplitQuery()
                  .AsQueryable();
         }
