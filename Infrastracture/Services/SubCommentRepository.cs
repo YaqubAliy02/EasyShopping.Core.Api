@@ -53,9 +53,19 @@ namespace Infrastracture.Services
                 .FirstOrDefaultAsync(sc => sc.Id == id);
         }
 
-        public Task<SubComment> UpdateAsync(SubComment entity)
+        public async Task<SubComment> UpdateAsync(SubComment subComment)
         {
-            throw new NotImplementedException();
+            var existingSubComment = this.GetByIdAsync(subComment.Id);
+
+            if (existingSubComment is not null)
+            {
+                this.easyShoppingDbContext.SubComments.Update(subComment);
+                int result = await this.easyShoppingDbContext.SaveChangesAsync();
+
+                if (result > 0) return subComment;
+            }
+
+            return null;
         }
     }
 }
