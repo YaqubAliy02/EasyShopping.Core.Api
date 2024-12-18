@@ -59,10 +59,14 @@ namespace Infrastracture.Services
 
         public async Task<Comment> UpdateAsync(Comment comment)
         {
-            this.easyShoppingDbContext.Comments.Update(comment);
-            int result = await this.easyShoppingDbContext.SaveChangesAsync();
+            var existingComment = await GetByIdAsync(comment.Id);
+            if(existingComment is not null)
+            {
+                existingComment.Text = comment.Text;
+                var result =  await this.easyShoppingDbContext.SaveChangesAsync();
 
-            if (result > 0) return comment;
+                if(result > 0) return comment;
+            }
 
             return null;
         }

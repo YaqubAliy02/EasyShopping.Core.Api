@@ -22,10 +22,17 @@ namespace EasyShopping.Core.Api.Controllers
 
             return result.StatusCode is 200 ? Ok(result) : BadRequest(result);
         }
+
         [HttpGet("[action]")]
         public async Task<IActionResult> GetAllCommentsAsync()
         {
             return await this.mediator.Send(new GetAllCommentsQuery());
+        }
+
+        [HttpPut("[action]")]
+        public async Task<IActionResult> UpdateCommentAsync([FromBody] UpdateCommentByIdCommand updateCommentByIdCommand)
+        {
+            return await this.mediator.Send(updateCommentByIdCommand);
         }
     }
 }

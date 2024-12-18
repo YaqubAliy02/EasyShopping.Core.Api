@@ -29,6 +29,7 @@ namespace Application.Mappings
             CreateMap<CreateCommentCommand, Comment>();
             CreateMap<Comment, CreateCommentCommandHandlerResult>();
             CreateMap<Comment, GetCommentDto>();
+            CreateMap<UpdateCommentByIdCommand, Comment>();
         }
 
         private void CategoryMappingRules()
