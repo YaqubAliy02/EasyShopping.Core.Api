@@ -1,5 +1,6 @@
 ﻿using Application.DTOs.Comments;
 using Application.DTOs.Products;
+using Application.DTOs.SubComments;
 using Application.DTOs.Users;
 using Application.Models;
 using Application.UseCases.Accounts.Command;
@@ -30,6 +31,8 @@ namespace Application.Mappings
         {
             CreateMap<CreateSubCommentCommand, SubComment>();
             CreateMap<SubComment, CreateSubCommentCommandHandlerResult>();
+            CreateMap<UpdateSubCommentCommand, SubComment>();
+            CreateMap<SubComment, GetSubCommentDto>();
         }
 
         private void CommentMappingRules()

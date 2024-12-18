@@ -428,6 +428,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.SubCommentController",
+    "Method": "UpdateSubCommentByIdAsync",
+    "RelativePath": "api/SubComment/UpdateSubCommentById",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "updateSubCommentCommand",
+        "Type": "Application.UseCases.SubComments.Command.UpdateSubCommentCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EasyShopping.Core.Api.Controllers.UserController",
     "Method": "ChangeUserPasswordAsync",
     "RelativePath": "api/User/ChangeUserPassword",

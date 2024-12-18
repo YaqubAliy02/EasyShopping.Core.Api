@@ -33,5 +33,11 @@ namespace EasyShopping.Core.Api.Controllers
         {
             return await this.mediator.Send(getSubCommentByIdQuery);
         }
+
+        [HttpPut("[action]")]
+        public async Task<IActionResult> UpdateSubCommentByIdAsync([FromBody] UpdateSubCommentCommand updateSubCommentCommand)
+        {
+            return await this.mediator.Send(updateSubCommentCommand);
+        }
     }
 }
