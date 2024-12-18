@@ -7,6 +7,7 @@ using Application.UseCases.Categories.Command;
 using Application.UseCases.Comments.Command;
 using Application.UseCases.Products.Command;
 using Application.UseCases.Roles.Command;
+using Application.UseCases.SubComments.Command;
 using Application.UseCases.Users.Command;
 using AutoMapper;
 using Domain.Models;
@@ -22,6 +23,13 @@ namespace Application.Mappings
             ProductMappingRules();
             CategoryMappingRules();
             CommentMappingRules();
+            SubCommentMappingRules();
+        }
+
+        private void SubCommentMappingRules()
+        {
+            CreateMap<CreateSubCommentCommand, SubComment>();
+            CreateMap<SubComment, CreateSubCommentCommandHandlerResult>();
         }
 
         private void CommentMappingRules()
