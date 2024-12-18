@@ -50,8 +50,7 @@ namespace Infrastracture.Services
         public Task<Comment> GetByIdAsync(Guid id)
         {
             return this.easyShoppingDbContext.Comments
-                .Include(p => p.Product)
-                .Include(u => u.User)
+                .Include(s => s.SubComments)
                 .AsSplitQuery()
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
