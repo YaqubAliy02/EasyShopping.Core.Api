@@ -1,4 +1,5 @@
 ﻿using Application.UseCases.Comments.Command;
+using Application.UseCases.Comments.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,11 @@ namespace EasyShopping.Core.Api.Controllers
             var result = await this.mediator.Send(createCommentCommand);
 
             return result.StatusCode is 200 ? Ok(result) : BadRequest(result);
+        }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllCommentsAsync()
+        {
+            return await this.mediator.Send(new GetAllCommentsQuery());
         }
     }
 }

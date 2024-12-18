@@ -1,4 +1,5 @@
-﻿using Application.DTOs.Products;
+﻿using Application.DTOs.Comments;
+using Application.DTOs.Products;
 using Application.DTOs.Users;
 using Application.Models;
 using Application.UseCases.Accounts.Command;
@@ -27,6 +28,7 @@ namespace Application.Mappings
         {
             CreateMap<CreateCommentCommand, Comment>();
             CreateMap<Comment, CreateCommentCommandHandlerResult>();
+            CreateMap<Comment, GetCommentDto>();
         }
 
         private void CategoryMappingRules()

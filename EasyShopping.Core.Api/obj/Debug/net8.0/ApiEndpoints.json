@@ -164,6 +164,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.CommentController",
+    "Method": "GetAllCommentsAsync",
+    "RelativePath": "api/Comment/GetAllComments",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EasyShopping.Core.Api.Controllers.ProductController",
     "Method": "CreateProductAsync",
     "RelativePath": "api/Product/CreateProduct",

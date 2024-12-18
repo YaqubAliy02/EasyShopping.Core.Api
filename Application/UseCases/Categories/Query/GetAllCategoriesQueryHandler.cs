@@ -25,7 +25,7 @@ namespace Application.UseCases.Categories.Query
 
         public async Task<IActionResult> Handle(GetAllCategoriesQuery request, CancellationToken cancellationToken)
         {
-            Task<IQueryable<Category>> categories = this.categoryRepository.GetAsync(x => true);
+            var categories = this.categoryRepository.GetAsync(x => true);
 
             var resultCategories = this.mapper
                 .Map<IEnumerable<Category>>(categories.Result.AsEnumerable());
