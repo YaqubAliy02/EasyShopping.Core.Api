@@ -62,7 +62,7 @@ namespace Infrastracture.Services
             var existingComment = await GetByIdAsync(comment.Id);
             if(existingComment is not null)
             {
-                existingComment.Text = comment.Text;
+                this.easyShoppingDbContext.Comments.Update(comment);
                 var result =  await this.easyShoppingDbContext.SaveChangesAsync();
 
                 if(result > 0) return comment;

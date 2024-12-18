@@ -56,39 +56,21 @@ namespace Application.UseCases.Products.Command
                 return new UnauthorizedObjectResult("User is not authenticated");
 
             var existingProduct = await productRepository.GetByIdAsync(request.Id);
-            if (existingProduct is null)
+            if (existingProduct == null)
                 return new NotFoundObjectResult("Product not found");
 
             if (existingProduct.UserId.ToString() != userId)
                 return new ForbidResult("User is not authorized to update this product");
 
-            var duplicateProduct = await productRepository.GetAsync(p => p.Name == request.Name && p.Id != request.Id);
-            if (duplicateProduct.Any())
-                return new BadRequestObjectResult("A product with the same name already exists");
+            mapper.Map(request, existingProduct);
+            existingProduct.UpdatedAt = DateTimeOffset.UtcNow;
 
-            if (request.SellingPrice < request.CostPrice)
-                return new BadRequestObjectResult("Selling price cannot be lower than cost price");
-
-            if (request.StockQuantity < 0)
-                return new BadRequestObjectResult("Stock quantity cannot be negative");
-
-            var category = await categoryRepository.GetByIdAsync(request.CategoryId);
-            if (category is null)
-                return new BadRequestObjectResult("Invalid category");
-
-            var user = await userRepository.GetByIdAsync(Guid.Parse(userId));
-            if (user is null)
-                return new BadRequestObjectResult("Invalid user");
-
-            var product = mapper.Map(request, existingProduct);
-            product.UpdatedAt = DateTimeOffset.UtcNow;
-
-            var validationResult = validator.Validate(product);
+            var validationResult = validator.Validate(existingProduct);
             if (!validationResult.IsValid)
                 return new BadRequestObjectResult(validationResult);
 
-            product = await productRepository.UpdateAsync(product);
-            var productGetDto = mapper.Map<ProductGetDto>(product);
+            var updatedProduct = await productRepository.UpdateAsync(existingProduct);
+            var productGetDto = mapper.Map<ProductGetDto>(updatedProduct);
 
             return new OkObjectResult(productGetDto);
         }

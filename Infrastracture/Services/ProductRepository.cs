@@ -17,24 +17,24 @@ namespace Infrastracture.Services
 
         public async Task<Product> AddAsync(Product product)
         {
-           await this.easyShoppingDbContext.Products.AddAsync(product);
+            await this.easyShoppingDbContext.Products.AddAsync(product);
             int result = await this.easyShoppingDbContext.SaveChangesAsync();
 
-            if(result > 0) return product;
+            if (result > 0) return product;
 
             return null;
         }
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-           var product = await this.easyShoppingDbContext.Products.FindAsync(id);
+            var product = await this.easyShoppingDbContext.Products.FindAsync(id);
 
-            if(product is not null)
+            if (product is not null)
                 this.easyShoppingDbContext.Products.Remove(product);
 
             int result = await this.easyShoppingDbContext.SaveChangesAsync();
 
-            if(result > 0) return true;
+            if (result > 0) return true;
 
             return false;
         }
@@ -65,11 +65,14 @@ namespace Infrastracture.Services
 
         public async Task<Product> UpdateAsync(Product updateProduct)
         {
-            this.easyShoppingDbContext.Products.Update(updateProduct);
+            var existingProduct = await GetByIdAsync(updateProduct.Id);
+            if (existingProduct is not null)
+            {
+                this.easyShoppingDbContext.Products.Update(updateProduct);
+                int result = await this.easyShoppingDbContext.SaveChangesAsync();
 
-            int result = await this.easyShoppingDbContext.SaveChangesAsync();
-
-            if (result > 0) return updateProduct;
+                if (result > 0) return updateProduct;
+            }
 
             return null;
         }
