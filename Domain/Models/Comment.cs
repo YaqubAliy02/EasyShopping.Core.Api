@@ -10,7 +10,7 @@ namespace Domain.Models
         public User User { get; set; }
         public Guid ProductId { get; set; }
         [JsonIgnore]
-        public Product Product { get; set; } 
+        public virtual Product Product { get; set; } 
         public ICollection<SubComment> SubComments { get; set; } = new List<SubComment>();
         public DateTimeOffset CreatedAt { get; set; } = DateTime.UtcNow;
     }

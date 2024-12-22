@@ -11,7 +11,7 @@
         public int StockQuantity { get; set; }
 
         public Guid CategoryId { get; set; }
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
         public Guid UserId { get; set; }
 

@@ -8,6 +8,7 @@ using AutoMapper;
 using Domain.Models;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Application.UseCases.Accounts.Command
 {
@@ -48,6 +49,20 @@ namespace Application.UseCases.Accounts.Command
 
             /*var defaultRole = await this.roleRepository.GetRoleByNameAsync("User");
             request.RolesId = new Guid[] { defaultRole.RoleId };*/
+            var users = await this.userRepository.GetAsync(x => true);
+
+            foreach (var existUser in users)
+            {
+                if (request.Email == existUser.Email)
+                {
+                    result.ErrorMessage = new string[] { "Email is already exist" };
+                    result.StatusCode = 403;
+
+                    return result;
+                }
+
+
+            }
             User user = mapper.Map<User>(request);
             var validationResult = validator.Validate(user);
 
