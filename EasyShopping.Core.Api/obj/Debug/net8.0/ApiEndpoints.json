@@ -291,6 +291,22 @@
   },
   {
     "ContainingType": "EasyShopping.Core.Api.Controllers.ProductController",
+    "Method": "GetProductByIdAsync",
+    "RelativePath": "api/Product/GetProductById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.ProductController",
     "Method": "UpdateProductByIdAsync",
     "RelativePath": "api/Product/UpdateProductById",
     "HttpMethod": "PUT",

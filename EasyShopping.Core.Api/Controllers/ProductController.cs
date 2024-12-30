@@ -28,24 +28,29 @@ namespace EasyShopping.Core.Api.Controllers
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> GetOwnProducts()
         {
           return await this.mediator.Send(new GetAllOwnProductsQuery());
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> GetOwnProductByIdAsync([FromQuery] GetOwnProductByIdQuery getProductByIdQuery)
         {
             return await this.mediator.Send(getProductByIdQuery);
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> GetAllProductsAsync()
         {
             return await this.mediator.Send(new GetAllProductsQuery());
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetProductByIdAsync([FromQuery] GetProductByIdQuery getProductByIdQuery)
+        {
+            return await this.mediator.Send(getProductByIdQuery);
         }
 
         [HttpPut("[action]")]

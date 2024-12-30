@@ -8,7 +8,6 @@ using AutoMapper;
 using Domain.Models;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Application.UseCases.Accounts.Command
 {
@@ -60,9 +59,8 @@ namespace Application.UseCases.Accounts.Command
 
                     return result;
                 }
-
-
             }
+
             User user = mapper.Map<User>(request);
             var validationResult = validator.Validate(user);
 
@@ -119,8 +117,6 @@ namespace Application.UseCases.Accounts.Command
             return result;
         }
     }
-
-
 
     public class RegisterUserCommandResult
     {
