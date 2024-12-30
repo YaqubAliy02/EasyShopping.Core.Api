@@ -15,7 +15,7 @@ namespace EasyShopping.Core.Api.Controllers
         }
 
         [HttpPost("[action]")]
-        [Authorize(Roles = "Admin, Seller")]
+        //[Authorize(Roles = "Admin, Seller")]
         public async Task<IActionResult> UploadPhoto([FromQuery] UploadProductThumbnailCommand uploadProductThumbnailCommand)
         {
             return await this.mediator.Send(uploadProductThumbnailCommand);

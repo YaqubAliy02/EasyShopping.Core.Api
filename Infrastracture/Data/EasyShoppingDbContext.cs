@@ -14,7 +14,7 @@ namespace Infrastracture.Data
         {
             this.configuration = configuration;
         }
-
+        
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -33,6 +33,5 @@ namespace Infrastracture.Data
             modelBuilder.Entity<User>().HasIndex(option => option.Email).IsUnique();
             modelBuilder.Entity<UserRole>().HasKey(ur => ur.RoleId);
         }
-
     }
 }

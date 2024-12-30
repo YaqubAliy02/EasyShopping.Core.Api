@@ -18,7 +18,7 @@ namespace Application.UseCases.Products.Command
         public decimal SellingPrice { get; set; }
         public int StockQuantity { get; set; }
         public Guid CategoryId { get; set; }
-        public string Thumbnail { get; set; }
+        public Guid[] ThumbnailIds { get; set; }
     }
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ResponseCore<CreateProductCommandHandlerResult>>
     {
@@ -98,6 +98,7 @@ namespace Application.UseCases.Products.Command
         public decimal SellingPrice { get; set; }
         public int StockQuantity { get; set; }
         public Guid CategoryId { get; set; }
-        public string Thumbnail { get; set; }
+        public Guid[] ThumbnailIds { get; set; }
     }
 }
+

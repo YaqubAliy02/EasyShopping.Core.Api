@@ -90,7 +90,11 @@ namespace Application.Mappings
 
         private void ProductMappingRules()
         {
-            CreateMap<CreateProductCommand, Product>();
+            CreateMap<CreateProductCommand, Product>()
+                .ForMember(destination => destination.Thumbnail,
+                option => option.MapFrom(src => src.ThumbnailIds
+                .Select(x => new ProductThumbnail() { Id = x})));
+
             CreateMap<Product, CreateProductCommandHandlerResult>();
             CreateMap<Product, ProductGetDto>();
             CreateMap<UpdateProductCommand, ProductGetDto>();

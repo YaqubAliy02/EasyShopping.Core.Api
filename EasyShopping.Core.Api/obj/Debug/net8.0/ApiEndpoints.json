@@ -255,8 +255,18 @@
   },
   {
     "ContainingType": "EasyShopping.Core.Api.Controllers.ProductController",
-    "Method": "GetProductByIdAsync",
-    "RelativePath": "api/Product/GetProductById",
+    "Method": "GetAllProductsAsync",
+    "RelativePath": "api/Product/GetAllProducts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.ProductController",
+    "Method": "GetOwnProductByIdAsync",
+    "RelativePath": "api/Product/GetOwnProductById",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -271,8 +281,8 @@
   },
   {
     "ContainingType": "EasyShopping.Core.Api.Controllers.ProductController",
-    "Method": "GetUserProducts",
-    "RelativePath": "api/Product/GetUserProducts",
+    "Method": "GetOwnProducts",
+    "RelativePath": "api/Product/GetOwnProducts",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
