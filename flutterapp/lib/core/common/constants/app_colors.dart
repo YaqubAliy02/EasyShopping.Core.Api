@@ -6,4 +6,6 @@ class AppColors {
   Color lightGrey = const Color(0xffF4F4F4);
   Color black = Colors.black;
   Color lightBlue = const Color(0xffE5EBFC);
+  Color lightRed = const Color(0xffFFEBEB);
+  Color grey = const Color(0xffD9D9D9);
 }
