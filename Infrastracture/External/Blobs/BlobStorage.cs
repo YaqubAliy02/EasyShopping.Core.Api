@@ -1,5 +1,6 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Domain.Models;
 using Microsoft.Extensions.Configuration;
 
 namespace Infrastracture.External.Blobs
@@ -8,6 +9,8 @@ namespace Infrastracture.External.Blobs
     {
         private readonly string blobConnectionString;
         private readonly string photoContainerName;
+        private readonly BlobServiceClient blobServiceClient;
+
 
         private readonly HashSet<string> supportedPhotoExtensions =
             new HashSet<string>(StringComparer.OrdinalIgnoreCase)
@@ -27,10 +30,11 @@ namespace Infrastracture.External.Blobs
             };
 
 
-        public BlobStorage(IConfiguration configuration)
+        public BlobStorage(IConfiguration configuration, BlobServiceClient blobServiceClient)
         {
             this.blobConnectionString = configuration["AzureBlobStorage:ConnectionString"];
             this.photoContainerName = configuration["AzureBlobStorage:PhotoContainerName"];
+            this.blobServiceClient = blobServiceClient;
         }
 
         public async Task<string> UploadAsync(Stream fileStream, string fileName, string contentType)
@@ -79,6 +83,38 @@ namespace Infrastracture.External.Blobs
 
                 throw new Exception(exception.Message);
             }
+        }
+
+        public async Task<List<ProductThumbnail>> SelectAllAsync()
+        {
+            var blobServiceClient = new BlobServiceClient(blobConnectionString);
+            var blobContainerClient = blobServiceClient.GetBlobContainerClient(photoContainerName);
+            var blobItems = blobContainerClient.GetBlobsAsync();
+            var allowedExtensions = new[] { ".jpeg", ".jpg", ".png", ".gif" };
+
+            var photos = new List<ProductThumbnail>();
+
+            await foreach (BlobItem item in blobItems)
+            {
+                var blobClient = blobContainerClient.GetBlobClient(item.Name);
+                var extension = Path.GetExtension(item.Name);
+
+                if (allowedExtensions.Contains(extension))
+                {
+                    var properties = await blobClient.GetPropertiesAsync();
+
+                    photos.Add(new ProductThumbnail
+                    {
+                        Id = Guid.NewGuid(),
+                        FileName = item.Name,
+                        ContentType = properties.Value.ContentType,
+                        Size = properties.Value.ContentLength,
+                        BlobUri = blobClient.Uri.ToString(),
+                        UploadedDate = properties.Value.CreatedOn.DateTime,
+                    });
+                }
+            }
+            return photos;
         }
     }
 }
