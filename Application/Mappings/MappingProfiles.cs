@@ -67,9 +67,9 @@ namespace Application.Mappings
                 .Select(x => new UserRole() { RoleId = x })));
 
             CreateMap<User, CreateUserCommandHandlerResult>();
-            CreateMap<User, UserGetDto>().
-                ForMember(destination => destination.ProductsId,
-                option => option.MapFrom(src => src.Products.Select(p => p.Id)));
+            CreateMap<User, UserGetDto>();
+                //ForMember(destination => destination.ProductsId,
+                //option => option.MapFrom(src => src.Products.Select(p => p.Id)));
 
             CreateMap<UpdateUserCommand, User>()
                 .ForMember(destination => destination.UserRoles,
@@ -81,7 +81,6 @@ namespace Application.Mappings
                 options => options.MapFrom(src => src.RolesId
                 .Select(x => new UserRole() { RoleId = x })));
 
-            CreateMap<User, RegisterUserCommandResult>();
             CreateMap<Token, RefreshTokenCommandResult>();
             CreateMap<ModifyUserCommand, User>();
             CreateMap<UserGetDto, User>();
