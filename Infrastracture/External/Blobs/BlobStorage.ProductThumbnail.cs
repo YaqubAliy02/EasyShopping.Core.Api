@@ -6,6 +6,13 @@ namespace Infrastracture.External.Blobs
 {
     public partial class BlobStorage
     {
+        private readonly BlobServiceClient blobServiceClient;
+
+        public BlobStorage(BlobServiceClient blobServiceClient)
+        {
+            this.blobServiceClient = blobServiceClient;
+        }
+
         public async Task<string> UploadProductThumbnailAsync(Stream fileStream, string fileName, string contentType) =>
             await UploadAsync(fileStream, fileName, contentType);
 
@@ -39,6 +46,31 @@ namespace Infrastracture.External.Blobs
                 }
             }
             return photos;
+        }
+
+        public async Task<bool> DeleteBlobAsync(string blobName, string containerName)
+        {
+            var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+            try
+            {
+                if (!await containerClient.ExistsAsync())
+                    throw new Exception($"Container {containerName} does not exist.");
+
+                var blobClient = containerClient.GetBlobClient(blobName);
+
+                if (!await blobClient.ExistsAsync())
+                    throw new Exception($"Blob {blobName} does not exist.");
+
+                await blobClient.DeleteAsync();
+
+                return true;
+            }
+            catch (Exception exception)
+            {
+                return false;
+
+                throw new Exception(exception.Message);
+            }
         }
     }
 }
