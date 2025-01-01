@@ -82,8 +82,7 @@ namespace Infrastracture.Services
         public async Task<ProductThumbnail> GetByIdAsync(Guid id)
         {
             return await this.easyShoppingDbContext.ProductThumbnails
-                .Where(p => p.ProductId == id)
-                .Include(p => p.Product)
+                .Where(p => p.Id == id)
                 .FirstOrDefaultAsync();
         }
 

@@ -27,5 +27,11 @@ namespace EasyShopping.Core.Api.Controllers
         {
             return await this.mediator.Send(new GetAllProductThumbnailsQuery());
         }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetProductThumbnailByIdAsync([FromQuery] GetProductThumbnailByIdQuery getProductThumbnailByIdQuery)
+        {
+            return await this.mediator.Send(getProductThumbnailByIdQuery);
+        }
     }
 }

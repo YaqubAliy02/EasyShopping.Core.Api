@@ -333,6 +333,22 @@
   },
   {
     "ContainingType": "EasyShopping.Core.Api.Controllers.ProductThumbnailController",
+    "Method": "GetProductThumbnailByIdAsync",
+    "RelativePath": "api/ProductThumbnail/GetProductThumbnailById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.ProductThumbnailController",
     "Method": "UploadPhoto",
     "RelativePath": "api/ProductThumbnail/UploadPhoto",
     "HttpMethod": "POST",
