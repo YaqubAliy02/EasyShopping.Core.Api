@@ -323,6 +323,16 @@
   },
   {
     "ContainingType": "EasyShopping.Core.Api.Controllers.ProductThumbnailController",
+    "Method": "GetAllProductThumbnailsAsync",
+    "RelativePath": "api/ProductThumbnail/GetAllProductThumbnails",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.ProductThumbnailController",
     "Method": "UploadPhoto",
     "RelativePath": "api/ProductThumbnail/UploadPhoto",
     "HttpMethod": "POST",

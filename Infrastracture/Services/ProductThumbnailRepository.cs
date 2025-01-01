@@ -83,12 +83,13 @@ namespace Infrastracture.Services
         {
             return await this.easyShoppingDbContext.ProductThumbnails
                 .Where(p => p.ProductId == id)
+                .Include(p => p.Product)
                 .FirstOrDefaultAsync();
         }
 
         public async Task<ProductThumbnail> UpdateAsync(ProductThumbnail updateProductThumbnail)
         {
-            var existingProductThumbnail = this.GetByIdAsync(updateProductThumbnail.Id);
+            var existingProductThumbnail = await this.GetByIdAsync(updateProductThumbnail.Id);
 
             if (existingProductThumbnail is not null)
             {

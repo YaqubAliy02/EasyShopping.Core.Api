@@ -1,5 +1,6 @@
 ﻿using Application.DTOs.Comments;
 using Application.DTOs.Products;
+using Application.DTOs.ProductThumbnails;
 using Application.DTOs.SubComments;
 using Application.DTOs.Users;
 using Application.Models;
@@ -25,6 +26,12 @@ namespace Application.Mappings
             CategoryMappingRules();
             CommentMappingRules();
             SubCommentMappingRules();
+            ProductThumbnailMappingRules();
+        }
+
+        private void ProductThumbnailMappingRules()
+        {
+            CreateMap<ProductThumbnail, GetAllProductThumbnailDTO>();
         }
 
         private void SubCommentMappingRules()
