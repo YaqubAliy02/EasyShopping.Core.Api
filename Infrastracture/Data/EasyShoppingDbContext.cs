@@ -27,6 +27,7 @@ namespace Infrastracture.Data
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<ProductThumbnail> ProductThumbnails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

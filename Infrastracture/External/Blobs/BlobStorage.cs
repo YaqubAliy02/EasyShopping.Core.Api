@@ -7,13 +7,11 @@ namespace Infrastracture.External.Blobs
 {
     public partial class BlobStorage : IBlobStorage
     {
-        private readonly string blobConnectionString;
-        private readonly string photoContainerName;
         private readonly BlobServiceClient blobServiceClient;
-
+        private readonly string photoContainerName;
 
         private readonly HashSet<string> supportedPhotoExtensions =
-            new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+            new(StringComparer.OrdinalIgnoreCase)
             {
                 ".jpg",
                 ".jpeg",
@@ -22,17 +20,15 @@ namespace Infrastracture.External.Blobs
             };
 
         private readonly HashSet<string> supportedPhotoContentType =
-            new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+            new(StringComparer.OrdinalIgnoreCase)
             {
                 "image/jpeg",
                 "image/png",
                 "image/gif"
             };
 
-
         public BlobStorage(IConfiguration configuration, BlobServiceClient blobServiceClient)
         {
-            this.blobConnectionString = configuration["AzureBlobStorage:ConnectionString"];
             this.photoContainerName = configuration["AzureBlobStorage:PhotoContainerName"];
             this.blobServiceClient = blobServiceClient;
         }
@@ -51,11 +47,10 @@ namespace Infrastracture.External.Blobs
                 throw new InvalidOperationException("Unsupported file extension or content type");
             }
 
-            var blobServiceClient = new BlobServiceClient(blobConnectionString);
             var blobContainerClient = blobServiceClient.GetBlobContainerClient(containerName);
             var blobClient = blobContainerClient.GetBlobClient(fileName);
 
-            await blobClient.UploadAsync(fileStream, new BlobHttpHeaders { ContentType = contentType});
+            await blobClient.UploadAsync(fileStream, new BlobHttpHeaders { ContentType = contentType });
 
             return blobClient.Uri.ToString();
         }
@@ -79,15 +74,13 @@ namespace Infrastracture.External.Blobs
             }
             catch (Exception exception)
             {
+                // Log exception if necessary
                 return false;
-
-                throw new Exception(exception.Message);
             }
         }
 
         public async Task<List<ProductThumbnail>> SelectAllAsync()
         {
-            var blobServiceClient = new BlobServiceClient(blobConnectionString);
             var blobContainerClient = blobServiceClient.GetBlobContainerClient(photoContainerName);
             var blobItems = blobContainerClient.GetBlobsAsync();
             var allowedExtensions = new[] { ".jpeg", ".jpg", ".png", ".gif" };

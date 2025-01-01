@@ -16,6 +16,7 @@ namespace Application.Abstraction
         DbSet<OrderItem> OrderItems { get; set; }
         DbSet<ShoppingCart> ShoppingCarts { get; set; }
         DbSet<RefreshToken> RefreshTokens { get; set; }
+        DbSet<ProductThumbnail> ProductThumbnails { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }
