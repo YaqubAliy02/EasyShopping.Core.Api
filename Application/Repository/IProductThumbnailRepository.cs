@@ -1,7 +1,9 @@
-﻿namespace Application.Repository
+﻿using Domain.Models;
+
+namespace Application.Repository
 {
-    public interface IProductThumbnailRepository
+    public interface IProductThumbnailRepository : IRepository<ProductThumbnail>
     {
-        Task<string> AddProductThumbnailAsync(Stream fileStream, string fileName, string contentType);
+        Task<ProductThumbnail> AddProductThumbnailAsync(Guid productId, Stream photoStream, string fileName, string contentType);
     }
 }

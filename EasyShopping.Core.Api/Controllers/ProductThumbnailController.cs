@@ -1,4 +1,5 @@
 ﻿using Application.UseCases.ProductThumbnails.Command;
+using Application.UseCases.ProductThumbnails.Query;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,16 @@ namespace EasyShopping.Core.Api.Controllers
         }
 
         [HttpPost("[action]")]
-        [Authorize(Roles = "Admin, Seller")]
+        //[Authorize(Roles = "Admin, Seller")]
         public async Task<IActionResult> UploadPhoto([FromQuery] UploadProductThumbnailCommand uploadProductThumbnailCommand)
         {
             return await this.mediator.Send(uploadProductThumbnailCommand);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllProductThumbnailsAsync()
+        {
+            return await this.mediator.Send(new GetAllProductThumbnailsQuery());
         }
     }
 }

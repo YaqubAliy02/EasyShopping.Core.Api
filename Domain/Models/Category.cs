@@ -8,6 +8,6 @@ namespace Domain.Models
         public string Name { get; set; }
 
         [JsonIgnore]
-        public ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

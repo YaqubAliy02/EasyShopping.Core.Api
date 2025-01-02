@@ -8,6 +8,7 @@ using AutoMapper;
 using Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.UseCases.Accounts.Command
 {
@@ -35,11 +36,11 @@ namespace Application.UseCases.Accounts.Command
 
         public async Task<IActionResult> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
-            var user = (await this.userRepository
-           .GetAsync(x => x.Password == request.Password.GetHash()
-           && x.Email == request.Email)).FirstOrDefault();
-            var userGetDto = this.mapper.Map<UserGetDto>(user);
+            var user = await this.userRepository
+              .GetAsync(x => x.Password == request.Password.GetHash()
+                 && x.Email == request.Email).Result.FirstOrDefaultAsync();
 
+            var userGetDto = this.mapper.Map<UserGetDto>(user);
 
             if (user is not null)
             {

@@ -8,17 +8,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.UseCases.Products.Query
+namespace Application.UseCases.Products.Query.OwnProduct
 {
-    public class GetAllProductsQuery : IRequest<IActionResult> { }
+    public class GetAllOwnProductsQuery : IRequest<IActionResult> { }
 
-    public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, IActionResult>
+    public class GetAllOwnProductsQueryHandler : IRequestHandler<GetAllOwnProductsQuery, IActionResult>
     {
         private readonly IMapper mapper;
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IProductRepository productRepository;
 
-        public GetAllProductsQueryHandler(
+        public GetAllOwnProductsQueryHandler(
             IHttpContextAccessor httpContextAccessor,
             IMapper mapper,
             IProductRepository productRepository)
@@ -29,22 +29,22 @@ namespace Application.UseCases.Products.Query
             this.productRepository = productRepository;
         }
 
-        public async Task<IActionResult> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Handle(GetAllOwnProductsQuery request, CancellationToken cancellationToken)
         {
-            if (!this.httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+            if (!httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
             {
                 return new UnauthorizedResult();
             }
 
-            var userIdClaim = this.httpContextAccessor
+            var userIdClaim = httpContextAccessor
                  .HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             var userId = Guid.Parse(userIdClaim);
 
-            var products = await this.productRepository.GetAsync(x => x.UserId == userId);
+            var products = await productRepository.GetAsync(x => x.UserId == userId);
             var productList = await products.ToListAsync();
 
-            var productsDto = this.mapper.Map<List<ProductGetDto>>(products);
+            var productsDto = mapper.Map<List<ProductGetDto>>(products);
 
             return new OkObjectResult(productsDto);
         }

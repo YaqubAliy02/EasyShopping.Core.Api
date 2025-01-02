@@ -8,10 +8,11 @@ using AutoMapper;
 using Domain.Models;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Application.UseCases.Accounts.Command
 {
-    public class RegisterUserCommand : IRequest<ResponseCore<RegisterUserCommandResult>>
+    public class RegisterUserCommand : IRequest<IActionResult>
     {
         public string UserName { get; set; }
         [EmailAddress]
@@ -20,7 +21,7 @@ namespace Application.UseCases.Accounts.Command
         public string Password { get; set; }
         public Guid[] RolesId { get; set; }
     }
-    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, ResponseCore<RegisterUserCommandResult>>
+    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, IActionResult>
     {
         private readonly IUserRepository userRepository;
         private readonly IMapper mapper;
@@ -42,30 +43,28 @@ namespace Application.UseCases.Accounts.Command
             this.tokenService = tokenService;
         }
 
-        public async Task<ResponseCore<RegisterUserCommandResult>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            var result = new ResponseCore<RegisterUserCommandResult>();
 
             /*var defaultRole = await this.roleRepository.GetRoleByNameAsync("User");
             request.RolesId = new Guid[] { defaultRole.RoleId };*/
+            var users = await this.userRepository.GetAsync(x => true);
+
+            foreach (var existUser in users)
+            {
+                if (request.Email == existUser.Email)
+                    return new BadRequestObjectResult("Email is already exist");
+            }
+
             User user = mapper.Map<User>(request);
             var validationResult = validator.Validate(user);
 
             if (!validationResult.IsValid)
-            {
-                result.ErrorMessage = validationResult.Errors.ToArray();
-                result.StatusCode = 400;
-
-                return result;
-            }
+                return new BadRequestObjectResult(validationResult.Errors);
 
             if (user is null)
-            {
-                result.ErrorMessage = new string[] { "User is not found" };
-                result.StatusCode = 404;
+                return new BadRequestObjectResult("User is not valid");
 
-                return result;
-            }
             List<UserRole> roles = new List<UserRole>();
             if (user.UserRoles is not null)
             {
@@ -75,17 +74,16 @@ namespace Application.UseCases.Accounts.Command
                     role = await roleRepository.GetByIdAsync(role.RoleId);
 
                     if (role is null)
-                    {
-                        result.ErrorMessage = new string[] { "Role Id: " + role.RoleId + "is not found" };
-                        result.StatusCode = 404;
+                        return new BadRequestObjectResult($"Role + {role.RoleId} + is not found");
 
-                        return result;
-                    }
                     roles.Add(role);
                 }
             }
+
             user.UserRoles = roles;
             user.CreatedAt = DateTime.UtcNow;
+            user = await this.userRepository.AddAsync(user);
+
             var userGetDto = this.mapper.Map<UserGetDto>(user);
 
             if (request is not null)
@@ -95,25 +93,11 @@ namespace Application.UseCases.Accounts.Command
                     User = userGetDto,
                     UserToken = await tokenService.CreateTokenAsync(user)
                 };
+
+                return new OkObjectResult(userRegisterDto);
             }
-            user = await userRepository.AddAsync(user);
 
-            result.Result = mapper.Map<RegisterUserCommandResult>(user);
-            result.StatusCode = 200;
-
-            return result;
+            return new BadRequestObjectResult("User is not valid!");
         }
-    }
-
-
-
-    public class RegisterUserCommandResult
-    {
-        public string UserName { get; set; }
-        [EmailAddress]
-        public string Email { get; set; }
-        [PasswordPropertyText]
-        public string Password { get; set; }
-        public Guid[] RolesId { get; set; }
     }
 }

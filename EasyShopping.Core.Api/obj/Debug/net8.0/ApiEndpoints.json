@@ -255,8 +255,18 @@
   },
   {
     "ContainingType": "EasyShopping.Core.Api.Controllers.ProductController",
-    "Method": "GetProductByIdAsync",
-    "RelativePath": "api/Product/GetProductById",
+    "Method": "GetAllProductsAsync",
+    "RelativePath": "api/Product/GetAllProducts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.ProductController",
+    "Method": "GetOwnProductByIdAsync",
+    "RelativePath": "api/Product/GetOwnProductById",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -271,12 +281,28 @@
   },
   {
     "ContainingType": "EasyShopping.Core.Api.Controllers.ProductController",
-    "Method": "GetUserProducts",
-    "RelativePath": "api/Product/GetUserProducts",
+    "Method": "GetOwnProducts",
+    "RelativePath": "api/Product/GetOwnProducts",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.ProductController",
+    "Method": "GetProductByIdAsync",
+    "RelativePath": "api/Product/GetProductById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -297,6 +323,16 @@
   },
   {
     "ContainingType": "EasyShopping.Core.Api.Controllers.ProductThumbnailController",
+    "Method": "GetAllProductThumbnailsAsync",
+    "RelativePath": "api/ProductThumbnail/GetAllProductThumbnails",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EasyShopping.Core.Api.Controllers.ProductThumbnailController",
     "Method": "UploadPhoto",
     "RelativePath": "api/ProductThumbnail/UploadPhoto",
     "HttpMethod": "POST",
@@ -306,6 +342,11 @@
       {
         "Name": "IFormFile",
         "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductId",
+        "Type": "System.Guid",
         "IsRequired": false
       }
     ],

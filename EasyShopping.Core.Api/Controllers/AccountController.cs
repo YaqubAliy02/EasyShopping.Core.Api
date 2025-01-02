@@ -21,16 +21,14 @@ namespace EasyShopping.Core.Api.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterUserCommand registerUserCommand)
         {
-            var result = await this.mediator.Send(registerUserCommand);
-
-            return result.StatusCode == 200 ? Ok(result) : BadRequest(result);
+            return await this.mediator.Send(registerUserCommand);
         }
 
         [HttpPost("[action]")]
         [AllowAnonymous]
-        public Task<IActionResult> LoginUserAsync(LoginUserCommand loginUserCommand)
+        public async Task<IActionResult> LoginUserAsync(LoginUserCommand loginUserCommand)
         {
-            return this.mediator.Send(loginUserCommand);
+            return await this.mediator.Send(loginUserCommand);
         }
 
         [HttpPost]

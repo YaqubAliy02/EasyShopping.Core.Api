@@ -1,5 +1,6 @@
 ﻿using Application.DTOs.Comments;
 using Application.DTOs.Products;
+using Application.DTOs.ProductThumbnails;
 using Application.DTOs.SubComments;
 using Application.DTOs.Users;
 using Application.Models;
@@ -25,6 +26,12 @@ namespace Application.Mappings
             CategoryMappingRules();
             CommentMappingRules();
             SubCommentMappingRules();
+            ProductThumbnailMappingRules();
+        }
+
+        private void ProductThumbnailMappingRules()
+        {
+            CreateMap<ProductThumbnail, GetAllProductThumbnailDTO>();
         }
 
         private void SubCommentMappingRules()
@@ -67,9 +74,9 @@ namespace Application.Mappings
                 .Select(x => new UserRole() { RoleId = x })));
 
             CreateMap<User, CreateUserCommandHandlerResult>();
-            CreateMap<User, UserGetDto>().
-                ForMember(destination => destination.ProductsId,
-                option => option.MapFrom(src => src.Products.Select(p => p.Id)));
+            CreateMap<User, UserGetDto>();
+                //ForMember(destination => destination.ProductsId,
+                //option => option.MapFrom(src => src.Products.Select(p => p.Id)));
 
             CreateMap<UpdateUserCommand, User>()
                 .ForMember(destination => destination.UserRoles,
@@ -81,7 +88,6 @@ namespace Application.Mappings
                 options => options.MapFrom(src => src.RolesId
                 .Select(x => new UserRole() { RoleId = x })));
 
-            CreateMap<User, RegisterUserCommandResult>();
             CreateMap<Token, RefreshTokenCommandResult>();
             CreateMap<ModifyUserCommand, User>();
             CreateMap<UserGetDto, User>();
@@ -90,7 +96,11 @@ namespace Application.Mappings
 
         private void ProductMappingRules()
         {
-            CreateMap<CreateProductCommand, Product>();
+            CreateMap<CreateProductCommand, Product>()
+                .ForMember(destination => destination.Thumbnail,
+                option => option.MapFrom(src => src.ThumbnailIds
+                .Select(x => new ProductThumbnail() { Id = x})));
+
             CreateMap<Product, CreateProductCommandHandlerResult>();
             CreateMap<Product, ProductGetDto>();
             CreateMap<UpdateProductCommand, ProductGetDto>();

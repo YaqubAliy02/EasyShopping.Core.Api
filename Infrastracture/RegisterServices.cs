@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Application.Abstraction;
 using Application.Repository;
+using Azure.Storage.Blobs;
 using Infrastracture.Data;
 using Infrastracture.External.Blobs;
 using Infrastracture.Services;
@@ -28,7 +29,12 @@ namespace Infrastracture
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ISubCommentRepository, SubCommentRepository>();
-
+            services.AddSingleton(provider =>
+            {
+                var configuration = provider.GetRequiredService<IConfiguration>();
+                var connectionString = configuration["AzureBlobStorage:ConnectionString"];
+                return new BlobServiceClient(connectionString);
+            });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {

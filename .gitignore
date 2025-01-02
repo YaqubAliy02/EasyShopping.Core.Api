@@ -375,3 +375,4 @@ FodyWeavers.xsd
 /EasyShopping.Core.Api/obj/Debug/net8.0/EasyShopping.Core.Api.AssemblyInfoInputs.cache
 /EasyShopping.Core.Api/obj/Debug/net8.0/EasyShopping.Core.Api.csproj.AssemblyReference.cache
 /EasyShopping.Core.Api/obj/Debug/net8.0/EasyShopping.Core.Api.sourcelink.json
+/EasyShopping.Core.Api/appsettings.Development.json

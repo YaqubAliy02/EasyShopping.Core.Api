@@ -14,7 +14,7 @@ namespace Infrastracture.Data
         {
             this.configuration = configuration;
         }
-
+        
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -26,12 +26,13 @@ namespace Infrastracture.Data
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<ProductThumbnail> ProductThumbnails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasIndex(option => option.Email).IsUnique();
             modelBuilder.Entity<UserRole>().HasKey(ur => ur.RoleId);
         }
-
     }
 }

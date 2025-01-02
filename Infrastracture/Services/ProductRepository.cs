@@ -39,7 +39,6 @@ namespace Infrastracture.Services
             return false;
         }
 
-
         public async Task<IQueryable<Product>> GetAsync(Expression<Func<Product, bool>> expression)
         {
             return this.easyShoppingDbContext.Products

@@ -13,7 +13,6 @@ namespace Application.DTOs.Users
         [PasswordPropertyText]
         public string Password { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
-        public Guid[] ProductsId { get; set; }
     }
 }
 

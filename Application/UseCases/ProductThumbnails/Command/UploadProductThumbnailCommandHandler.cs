@@ -9,6 +9,7 @@ namespace Application.UseCases.ProductThumbnails.Command
     public class UploadProductThumbnailCommand : IRequest<IActionResult>
     {
         public IFormFile IFormFile { get; set; }
+        public Guid ProductId { get; set; }
     }
     public class UploadProductThumbnailCommandHandler : IRequestHandler<UploadProductThumbnailCommand, IActionResult>
     {
@@ -28,8 +29,7 @@ namespace Application.UseCases.ProductThumbnails.Command
             }
 
             using var stream = request.IFormFile.OpenReadStream();
-            var blobUri = await this.productThumbnailRepository
-                .AddProductThumbnailAsync(stream, request.IFormFile.FileName, request.IFormFile.ContentType);
+            var blobResult = await this.productThumbnailRepository.AddProductThumbnailAsync(request.ProductId, stream, request.IFormFile.FileName, request.IFormFile.ContentType);
 
             var productThumbnail = new ProductThumbnail
             {
@@ -37,7 +37,7 @@ namespace Application.UseCases.ProductThumbnails.Command
                 FileName = request.IFormFile.FileName,
                 ContentType = request.IFormFile.ContentType,
                 Size = request.IFormFile.Length,
-                BlobUri = blobUri,
+                BlobUri = blobResult.BlobUri,
                 UploadedDate = DateTime.UtcNow
             };
 
