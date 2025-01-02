@@ -10,7 +10,7 @@ class AppResponsive {
     screenWidth = size.width;
   }
 
-  static double height(double percentage) => screenHeight * percentage;
+  static double height(double number) => (number / screenHeight) * screenHeight;
 
-  static double width(double percentage) => screenWidth * percentage;
+  static double width(double number) => (number / screenWidth) * screenWidth;
 }
