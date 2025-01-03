@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterapp/core/utils/app_responsiveness.dart';
-import 'package:flutterapp/presentation/splash/splash_screen.dart';
+import 'package:flutterapp/presentation/auth/sign_up.dart';
 
 void main() {
   runApp(
-    const MyApp(),
+    const ProviderScope(child: MyApp()),
   );
 }
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     AppResponsive.init(context);
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: SignUpScreen(),
     );
   }
 }
