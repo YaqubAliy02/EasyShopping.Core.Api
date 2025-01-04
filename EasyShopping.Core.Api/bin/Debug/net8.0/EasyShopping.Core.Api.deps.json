@@ -40,6 +40,25 @@
           }
         }
       },
+      "AWSSDK.Core/3.7.400.71": {
+        "runtime": {
+          "lib/net8.0/AWSSDK.Core.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.7.400.71"
+          }
+        }
+      },
+      "AWSSDK.S3/3.7.410.13": {
+        "dependencies": {
+          "AWSSDK.Core": "3.7.400.71"
+        },
+        "runtime": {
+          "lib/net8.0/AWSSDK.S3.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.7.410.13"
+          }
+        }
+      },
       "Azure.Core/1.44.1": {
         "dependencies": {
           "Microsoft.Bcl.AsyncInterfaces": "6.0.0",
@@ -866,6 +885,7 @@
       },
       "Infrastracture/1.0.0": {
         "dependencies": {
+          "AWSSDK.S3": "3.7.410.13",
           "Application": "1.0.0",
           "Azure.Storage.Blobs": "12.23.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.11",
@@ -901,6 +921,20 @@
       "sha512": "sha512-+g/K+Vpe3gGMKGzjslMOdqNlkikScDjWfVvmWTayrDHaG/n2pPmFBMa+jKX1r/h6BDGFdkyRjAuhFE3ykW+r1g==",
       "path": "automapper.extensions.microsoft.dependencyinjection/12.0.1",
       "hashPath": "automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512"
+    },
+    "AWSSDK.Core/3.7.400.71": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XON2p7CcsspejVaCDgYHMe8Ml+b7YMfoE1vRLjmFJ+sjhZ0c9UduII+XiIkoOS7eyl2nizYTP2LRFJoj3Fd90A==",
+      "path": "awssdk.core/3.7.400.71",
+      "hashPath": "awssdk.core.3.7.400.71.nupkg.sha512"
+    },
+    "AWSSDK.S3/3.7.410.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-iI1eZM6Kavl5v6rwtdsdTM4ygpu6nlx6b9FYDJmPTR9c9lX7iw2hiGlFIv75POo9csayevfUo8p7DjZmV8WwYg==",
+      "path": "awssdk.s3/3.7.410.13",
+      "hashPath": "awssdk.s3.3.7.410.13.nupkg.sha512"
     },
     "Azure.Core/1.44.1": {
       "type": "package",

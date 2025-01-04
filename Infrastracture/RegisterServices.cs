@@ -3,6 +3,7 @@ using Application.Abstraction;
 using Application.Repository;
 using Azure.Storage.Blobs;
 using Infrastracture.Data;
+using Infrastracture.External.AWSS3;
 using Infrastracture.External.Blobs;
 using Infrastracture.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -23,7 +24,8 @@ namespace Infrastracture
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
-            services.AddScoped<IBlobStorage, BlobStorage>();
+            // services.AddScoped<IBlobStorage, BlobStorage>();
+            services.AddScoped<IAWSStorage, AWSStorage>();
             services.AddScoped<IProductThumbnailRepository, ProductThumbnailRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();

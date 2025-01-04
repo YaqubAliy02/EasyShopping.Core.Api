@@ -28,23 +28,18 @@ namespace Application.UseCases.Products.Command
         private readonly IProductRepository productRepository;
         private readonly IValidator<Product> validator;
         private readonly IHttpContextAccessor httpContextAccessor;
-        private readonly ICategoryRepository categoryRepository;
-        private readonly IUserRepository userRepository;
 
         public UpdateProductCommandHandler(
             IMapper mapper,
             IProductRepository productRepository,
             IValidator<Product> validator,
-            IHttpContextAccessor httpContextAccessor,
-            ICategoryRepository categoryRepository,
-            IUserRepository userRepository)
+            IHttpContextAccessor httpContextAccessor
+            )
         {
             this.mapper = mapper;
             this.productRepository = productRepository;
             this.validator = validator;
             this.httpContextAccessor = httpContextAccessor;
-            this.categoryRepository = categoryRepository;
-            this.userRepository = userRepository;
         }
 
         public async Task<IActionResult> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
@@ -66,6 +61,7 @@ namespace Application.UseCases.Products.Command
             existingProduct.UpdatedAt = DateTimeOffset.UtcNow;
 
             var validationResult = validator.Validate(existingProduct);
+
             if (!validationResult.IsValid)
                 return new BadRequestObjectResult(validationResult);
 

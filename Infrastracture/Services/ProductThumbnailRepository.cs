@@ -2,6 +2,7 @@
 using Application.Abstraction;
 using Application.Repository;
 using Domain.Models;
+using Infrastracture.External.AWSS3;
 using Infrastracture.External.Blobs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
@@ -10,16 +11,16 @@ namespace Infrastracture.Services
 {
     public class ProductThumbnailRepository : IProductThumbnailRepository
     {
-        private readonly IBlobStorage blobStorage;
+        private readonly IAWSStorage awsStorage;
         private readonly IProductRepository productRepository;
-        private readonly IProductThumbnailRepository productThumbnailRepository;
         private readonly IEasyShoppingDbContext easyShoppingDbContext;
 
-        public ProductThumbnailRepository(IBlobStorage blobStorage,
+        public ProductThumbnailRepository(
+            IAWSStorage awsStorage,
             IProductRepository productRepository,
             IEasyShoppingDbContext easyShoppingDbContext)
         {
-            this.blobStorage = blobStorage;
+            this.awsStorage = awsStorage;
             this.productRepository = productRepository;
             this.easyShoppingDbContext = easyShoppingDbContext;
         }
@@ -28,19 +29,38 @@ namespace Infrastracture.Services
         {
             var product = await this.productRepository.GetByIdAsync(productId);
 
-            if(product is null)
+            if (product is null)
             {
-                throw new KeyNotFoundException($"Product with ID {productId} not found");
+                throw new KeyNotFoundException($"Product with ID {productId} not found.");
             }
 
-            var blobResult = await this.blobStorage.UploadProductThumbnailAsync(photoStream, fileName, contentType);
+            string s3Uri = await this.awsStorage.UploadFileAsync(photoStream, fileName, contentType);
 
             var productThumbnail = new ProductThumbnail
             {
                 Id = Guid.NewGuid(),
                 ProductId = productId,
-                BlobUri = blobResult,
-                FileName = $"{productId}/{Path.GetFileName(fileName)}"  ,
+                BlobUri = s3Uri,
+                FileName = Path.GetFileName(fileName),
+                Size = photoStream.Length,
+                ContentType = contentType,
+                UploadedDate = DateTimeOffset.UtcNow
+            };
+
+            await AddAsync(productThumbnail);
+
+            return productThumbnail;
+        }
+
+        public async Task<ProductThumbnail> AddForUpdateProductThumbnailAsync(Stream photoStream, string fileName, string contentType)
+        {
+            string s3Uri = await this.awsStorage.UploadFileAsync(photoStream, fileName, contentType);
+
+            var productThumbnail = new ProductThumbnail
+            {
+                Id = Guid.NewGuid(),
+                BlobUri = s3Uri,
+                FileName = Path.GetFileName(fileName),
                 Size = photoStream.Length,
                 ContentType = contentType,
                 UploadedDate = DateTimeOffset.UtcNow
@@ -61,15 +81,18 @@ namespace Infrastracture.Services
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-          var productThumbnail =  await this.easyShoppingDbContext.ProductThumbnails.FindAsync(id);
+            var productThumbnail = await this.easyShoppingDbContext.ProductThumbnails.FindAsync(id);
 
-            if(productThumbnail is not null)
+            if (productThumbnail is not null)
+            {
+                await this.awsStorage.DeleteFileAsync(productThumbnail.FileName);
+
                 this.easyShoppingDbContext.ProductThumbnails.Remove(productThumbnail);
+            }
 
             int result = await this.easyShoppingDbContext.SaveChangesAsync();
 
-            return result > 0 ? true : false;
-
+            return result > 0;
         }
 
         public async Task<IQueryable<ProductThumbnail>> GetAsync(Expression<Func<ProductThumbnail, bool>> expression)
@@ -95,7 +118,7 @@ namespace Infrastracture.Services
                 this.easyShoppingDbContext.ProductThumbnails.Update(updateProductThumbnail);
                 int result = await this.easyShoppingDbContext.SaveChangesAsync();
 
-                if( result > 0) return updateProductThumbnail;
+                if (result > 0) return updateProductThumbnail;
             }
 
             return null;

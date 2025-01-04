@@ -5,7 +5,6 @@ using Application.DTOs.Users;
 using Application.Extensions;
 using Application.Repository;
 using AutoMapper;
-using Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

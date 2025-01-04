@@ -305,6 +305,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AWSSDK.S3": {
+              "target": "Package",
+              "version": "[3.7.410.13, )"
+            },
             "Azure.Storage.Blobs": {
               "target": "Package",
               "version": "[12.23.0, )"

@@ -22,16 +22,22 @@ namespace EasyShopping.Core.Api.Controllers
             return await this.mediator.Send(uploadProductThumbnailCommand);
         }
 
-        [HttpGet("[action]")]
-        public async Task<IActionResult> GetAllProductThumbnailsAsync()
-        {
-            return await this.mediator.Send(new GetAllProductThumbnailsQuery());
-        }
+        //[HttpGet("[action]")]
+        //public async Task<IActionResult> GetAllProductThumbnailsAsync()
+        //{
+        //    return await this.mediator.Send(new GetAllProductThumbnailsQuery());
+        //}
 
-        [HttpGet("[action]")]
-        public async Task<IActionResult> GetProductThumbnailByIdAsync([FromQuery] GetProductThumbnailByIdQuery getProductThumbnailByIdQuery)
-        {
-            return await this.mediator.Send(getProductThumbnailByIdQuery);
-        }
+        //[HttpGet("[action]")]
+        //public async Task<IActionResult> GetProductThumbnailByIdAsync([FromQuery] GetProductThumbnailByIdQuery getProductThumbnailByIdQuery)
+        //{
+        //    return await this.mediator.Send(getProductThumbnailByIdQuery);
+        //}
+
+        //[HttpPut("[action]")]
+        //public async Task<IActionResult> UpdateProductThumbnailAsync([FromQuery] UpdateProductThumbnailCommand updateProductThumbnailCommand)
+        //{
+        //    return await this.mediator.Send(updateProductThumbnailCommand);
+        //}
     }
 }
