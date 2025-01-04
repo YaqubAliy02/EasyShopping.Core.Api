@@ -36,6 +36,7 @@ namespace Application.UseCases.ProductThumbnails.Command
                 Id = Guid.NewGuid(),
                 FileName = request.IFormFile.FileName,
                 ContentType = request.IFormFile.ContentType,
+                ProductId = request.ProductId,
                 Size = request.IFormFile.Length,
                 BlobUri = blobResult.BlobUri,
                 UploadedDate = DateTime.UtcNow
